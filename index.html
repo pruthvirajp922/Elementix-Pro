@@ -64,7 +64,6 @@
             background: rgba(255, 255, 255, 0.18);
         }
 
-        /* CENTERED TITLE WITH SUITABLE GLOWING SHADOW */
         header {
             width: 100%;
             max-width: 1600px;
@@ -72,23 +71,32 @@
             margin-bottom: 28px;
         }
 
+        /* GLOWING APP NAME SUITABLE FOR UI */
         header h1 {
-            font-size: 1.85rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
-            text-shadow: 0 0 8px rgba(56, 189, 248, 0.5), 
-                         0 0 20px rgba(56, 189, 248, 0.2);
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            color: #ffffff;
+          background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3), 
+                         0 0 20px rgba(99, 102, 241, 0.6), 
+                         0 0 40px rgba(56, 189, 248, 0.4);
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 0.85rem;
-        }
+            font-size: 1.2rem;
+            font-weight: 700;
+          letter-spacing: 1px;
+        
+      }
 
         .main-layout {
             display: grid;
-            grid-template-columns: 1fr 380px;
+            grid-template-columns: 1fr 400px;
             gap: 24px;
             width: 100%;
             max-width: 1600px;
@@ -109,7 +117,6 @@
             gap: 6px;
         }
 
-        /* GRID ELEMENTS STYLING (MASS ON TOP RIGHT, ATOMIC NUM ON TOP LEFT) */
         .element {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -123,22 +130,32 @@
             text-align: center;
             cursor: pointer;
             position: relative;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
         }
 
-        /* GLOWING VIOLET-BLUE HOVER/ACTIVE INTERACTION BORDERS */
         .element:hover {
             border-color: var(--glow-hover);
             box-shadow: 0 0 12px rgba(99, 102, 241, 0.45);
-            transform: translateY(-2px);
-            z-index: 2;
+            transform: scale(1.1);
+            z-index: 10;
         }
 
         .element.active {
             border-color: var(--glow-active);
             box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
-            background: rgba(99, 102, 241, 0.04);
         }
+
+        /* DYNAMIC CATEGORY HIGHLIGHT SHADES */
+        .element.highlight-reactive-nonmetal { background-color: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3); }
+        .element.highlight-noble-gas { background-color: rgba(244, 63, 94, 0.12); border-color: rgba(244, 63, 94, 0.3); }
+        .element.highlight-alkali-metal { background-color: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3); }
+        .element.highlight-alkaline-earth { background-color: rgba(255, 120, 35, 0.12); border-color: rgba(255, 120, 35, 0.3); }
+        .element.highlight-metalloid { background-color: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.3); }
+        .element.highlight-post-transition { background-color: rgba(45, 212, 191, 0.12); border-color: rgba(45, 212, 191, 0.3); }
+        .element.highlight-transition-metal { background-color: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.3); }
+        .element.highlight-lanthanide { background-color: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.3); }
+        .element.highlight-actinide { background-color: rgba(236, 72, 153, 0.12); border-color: rgba(236, 72, 153, 0.3); }
+        .element.highlight-unknown { background-color: rgba(100, 116, 139, 0.12); border-color: rgba(100, 116, 139, 0.3); }
 
         .element-top-meta {
             display: flex;
@@ -155,7 +172,6 @@
             opacity: 0.85;
         }
 
-        /* LETTERS GLOVING REFLECTION SHADOW */
         .elem-sym {
             font-size: 1.15rem;
             font-weight: 700;
@@ -190,7 +206,6 @@
             height: 16px;
         }
 
-        /* INFO PANEL LEGEND KEY (PERFECTLY CENTERED) */
         .legend-container {
             margin-top: 28px;
             padding-top: 20px;
@@ -252,59 +267,92 @@
         .info-hero {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
             margin-bottom: 24px;
         }
 
-        /* REFINED SYMBOL PREVIEW EMBED - CHANNELS VERTICAL AND HORIZONTAL CENTER */
         .hero-sym-box {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+            width: 130px;
+            height: 130px;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center; 
-            padding: 6px 8px;
+            padding: 10px 12px;
             flex-shrink: 0;
+            position: relative;
         }
 
         .hero-top-meta {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-muted);
             line-height: 1;
+            position: absolute;
+            top: 12px;
+            left: 0;
+            padding: 0 12px;
+        }
+
+        .hero-sym-center-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            width: 100%;
+            margin-top: 16px;
         }
 
         .hero-sym {
-            font-size: 1.85rem;
+            font-size: 3.4rem;
             font-weight: 700;
             line-height: 1;
-            margin-bottom: 2px;
             text-align: center;
-            text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
         }
 
         .hero-meta h2 {
-            font-size: 1.35rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+            color: var(--text-main);
         }
 
         .hero-meta span {
-            font-size: 0.8rem;
+            font-size: 1.05rem;
+            font-weight: 500;
             color: var(--text-muted);
         }
 
+        /* 2D MOVING ELEMENT CONTAINER VISUAL MODULE */
+        .atom-visualization-container {
+            width: 100%;
+            height: 220px;
+            background: radial-gradient(circle at center, #110e25 0%, #040307 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .atom-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* TARGETED FONT SIZE INCREASE FOR INFORMATION ENTRIES ONLY */
         .info-row {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 12px 14px;
+            padding: 14px 16px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
@@ -313,26 +361,28 @@
         }
 
         .info-label {
-            font-size: 0.8rem;
+            font-size: 0.98rem;  /* Increased size */
             color: var(--text-muted);
+            font-weight: 500;
         }
 
         .info-value {
-            font-size: 0.85rem;
+            font-size: 1.05rem;  /* Increased size */
             font-weight: 600;
+            color: var(--text-main);
         }
 
         footer {
             margin-top: auto;
             padding-top: 40px;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 1rem;
             text-align: center;
         }
 
         footer .brand-signature {
             color: var(--reactive-nonmetal);
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             font-weight: 700;
         }
 
@@ -380,12 +430,18 @@
                             <span id="hero-num">-</span>
                             <span id="hero-mass">-</span>
                         </div>
-                        <div id="view-sym" class="hero-sym">-</div>
+                        <div class="hero-sym-center-wrapper">
+                            <div id="view-sym" class="hero-sym">-</div>
+                        </div>
                     </div>
                     <div class="hero-meta">
                         <h2 id="view-name">-</h2>
                         <span id="view-cat">-</span>
                     </div>
+                </div>
+
+                <div class="atom-visualization-container" id="canvas-container">
+                    <canvas id="atom-2d-canvas" class="atom-canvas"></canvas>
                 </div>
 
                 <div class="info-row">
@@ -397,20 +453,27 @@
                     <span class="info-value" id="view-mass-row">-</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">No. of Protons</span>
-                    <span class="info-value" id="view-protons">-</span>
+                    <span class="info-label">No. of Neutrons</span>
+                    <span class="info-value" id="view-neutrons">-</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">No. of Electrons</span>
-                    <span class="info-value" id="view-electrons">-</span>
+                    <span class="info-label">No. of Protons / Electrons</span>
+                    <span class="info-value" id="view-protons-electrons">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Melting Point</span>
+                    <span class="info-value" id="view-melting">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Boiling Point</span>
+                    <span class="info-value" id="view-boiling">-</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Table Position</span>
                     <span class="info-value" id="view-pos">-</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Discovered in
-                  </span>
+                    <span class="info-label">Discovered</span>
                     <span class="info-value" id="view-year">-</span>
                 </div>
                 <div class="info-row" style="margin-bottom: 0;">
@@ -427,130 +490,131 @@
 
     <script>
         const dataset = [
-            { num: 1, sym: "H", name: "Hydrogen", mass: "1.008", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 1, col: 1, discovered: "1766", discoverer: "Henry Cavendish" },
-            { num: 2, sym: "He", name: "Helium", mass: "4.002", group: "noble-gas", category: "Noble Gas", period: 1, col: 18, discovered: "1868", discoverer: "Janssen & Lockyer" },
-            { num: 3, sym: "Li", name: "Lithium", mass: "6.94", group: "alkali-metal", category: "Alkali Metal", period: 2, col: 1, discovered: "1817", discoverer: "Johan August Arfwedson" },
-            { num: 4, sym: "Be", name: "Beryllium", mass: "9.012", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 2, col: 2, discovered: "1798", discoverer: "Louis Nicolas Vauquelin" },
-            { num: 5, sym: "B", name: "Boron", mass: "10.81", group: "metalloid", category: "Metalloid", period: 2, col: 13, discovered: "1808", discoverer: "Gay-Lussac & Thénard" },
-            { num: 6, sym: "C", name: "Carbon", mass: "12.01", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 14, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 7, sym: "N", name: "Nitrogen", mass: "14.00", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 15, discovered: "1772", discoverer: "Daniel Rutherford" },
-            { num: 8, sym: "O", name: "Oxygen", mass: "15.99", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 16, discovered: "1774", discoverer: "Joseph Priestley" },
-            { num: 9, sym: "F", name: "Fluorine", mass: "18.99", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 17, discovered: "1886", discoverer: "Henri Moissan" },
-            { num: 10, sym: "Ne", name: "Neon", mass: "20.18", group: "noble-gas", category: "Noble Gas", period: 2, col: 18, discovered: "1898", discoverer: "Ramsay & Travers" },
-            { num: 11, sym: "Na", name: "Sodium", mass: "22.99", group: "alkali-metal", category: "Alkali Metal", period: 3, col: 1, discovered: "1807", discoverer: "Humphry Davy" },
-            { num: 12, sym: "Mg", name: "Magnesium", mass: "24.30", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 3, col: 2, discovered: "1755", discoverer: "Joseph Black" },
-            { num: 13, sym: "Al", name: "Aluminium", mass: "26.98", group: "post-transition", category: "Post-transition Metal", period: 3, col: 13, discovered: "1825", discoverer: "Hans Christian Ørsted" },
-            { num: 14, sym: "Si", name: "Silicon", mass: "28.08", group: "metalloid", category: "Metalloid", period: 3, col: 14, discovered: "1823", discoverer: "Jöns Jacob Berzelius" },
-            { num: 15, sym: "P", name: "Phosphorus", mass: "30.97", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 15, discovered: "1669", discoverer: "Hennig Brand" },
-            { num: 16, sym: "S", name: "Sulfur", mass: "32.06", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 16, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 17, sym: "Cl", name: "Chlorine", mass: "35.45", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 17, discovered: "1774", discoverer: "Carl Wilhelm Scheele" },
-            { num: 18, sym: "Ar", name: "Argon", mass: "39.94", group: "noble-gas", category: "Noble Gas", period: 3, col: 18, discovered: "1894", discoverer: "Ramsay & Rayleigh" },
-            { num: 19, sym: "K", name: "Potassium", mass: "39.09", group: "alkali-metal", category: "Alkali Metal", period: 4, col: 1, discovered: "1807", discoverer: "Humphry Davy" },
-            { num: 20, sym: "Ca", name: "Calcium", mass: "40.07", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 4, col: 2, discovered: "1808", discoverer: "Humphry Davy" },
-            { num: 21, sym: "Sc", name: "Scandium", mass: "44.95", group: "transition-metal", category: "Transition Metal", period: 4, col: 3, discovered: "1879", discoverer: "Lars Fredrik Nilson" },
-            { num: 22, sym: "Ti", name: "Titanium", mass: "47.86", group: "transition-metal", category: "Transition Metal", period: 4, col: 4, discovered: "1791", discoverer: "William Gregor" },
-            { num: 23, sym: "V", name: "Vanadium", mass: "50.94", group: "transition-metal", category: "Transition Metal", period: 4, col: 5, discovered: "1801", discoverer: "Andrés Manuel del Río" },
-            { num: 24, sym: "Cr", name: "Chromium", mass: "51.99", group: "transition-metal", category: "Transition Metal", period: 4, col: 6, discovered: "1797", discoverer: "Louis Nicolas Vauquelin" },
-            { num: 25, sym: "Mn", name: "Manganese", mass: "54.93", group: "transition-metal", category: "Transition Metal", period: 4, col: 7, discovered: "1774", discoverer: "Carl Wilhelm Scheele" },
-            { num: 26, sym: "Fe", name: "Iron", mass: "55.84", group: "transition-metal", category: "Transition Metal", period: 4, col: 8, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 27, sym: "Co", name: "Cobalt", mass: "58.93", group: "transition-metal", category: "Transition Metal", period: 4, col: 9, discovered: "1735", discoverer: "Georg Brandt" },
-            { num: 28, sym: "Ni", name: "Nickel", mass: "58.69", group: "transition-metal", category: "Transition Metal", period: 4, col: 10, discovered: "1751", discoverer: "Axel Fredrik Cronstedt" },
-            { num: 29, sym: "Cu", name: "Copper", mass: "63.54", group: "transition-metal", category: "Transition Metal", period: 4, col: 11, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 30, sym: "Zn", name: "Zinc", mass: "65.38", group: "transition-metal", category: "Transition Metal", period: 4, col: 12, discovered: "Ancient", discoverer: "Indian Chemists" },
-            { num: 31, sym: "Ga", name: "Gallium", mass: "69.72", group: "post-transition", category: "Post-transition Metal", period: 4, col: 13, discovered: "1875", discoverer: "Paul-Émile Lecoq de Boisbaudran" },
-            { num: 32, sym: "Ge", name: "Germanium", mass: "72.63", group: "metalloid", category: "Metalloid", period: 4, col: 14, discovered: "1886", discoverer: "Clemens Winkler" },
-            { num: 33, sym: "As", name: "Arsenic", mass: "74.92", group: "metalloid", category: "Metalloid", period: 4, col: 15, discovered: "Ancient", discoverer: "Albertus Magnus" },
-            { num: 34, sym: "Se", name: "Selenium", mass: "78.97", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 4, col: 16, discovered: "1817", discoverer: "Berzelius & Gahn" },
-            { num: 35, sym: "Br", name: "Bromine", mass: "79.90", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 4, col: 17, discovered: "1826", discoverer: "Balard & Gmelin" },
-            { num: 36, sym: "Kr", name: "Krypton", mass: "83.79", group: "noble-gas", category: "Noble Gas", period: 4, col: 18, discovered: "1898", discoverer: "Ramsay & Travers" },
-            { num: 37, sym: "Rb", name: "Rubidium", mass: "85.46", group: "alkali-metal", category: "Alkali Metal", period: 5, col: 1, discovered: "1861", discoverer: "Bunsen & Kirchhoff" },
-            { num: 38, sym: "Sr", name: "Strontium", mass: "87.62", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 5, col: 2, discovered: "1790", discoverer: "Adair Crawford" },
-            { num: 39, sym: "Y", name: "Yttrium", mass: "88.90", group: "transition-metal", category: "Transition Metal", period: 5, col: 3, discovered: "1794", discoverer: "Johan Gadolin" },
-            { num: 40, sym: "Zr", name: "Zirconium", mass: "91.22", group: "transition-metal", category: "Transition Metal", period: 5, col: 4, discovered: "1789", discoverer: "Martin Heinrich Klaproth" },
-            { num: 41, sym: "Nb", name: "Niobium", mass: "92.91", group: "transition-metal", category: "Transition Metal", period: 5, col: 5, discovered: "1801", discoverer: "Charles Hatchett" },
-            { num: 42, sym: "Mo", name: "Molybdenum", mass: "95.95", group: "transition-metal", category: "Transition Metal", period: 5, col: 6, discovered: "1778", discoverer: "Carl Wilhelm Scheele" },
-            { num: 43, sym: "Tc", name: "Technetium", mass: "98.00", group: "transition-metal", category: "Transition Metal", period: 5, col: 7, discovered: "1937", discoverer: "Perrier & Segrè" },
-            { num: 44, sym: "Ru", name: "Ruthenium", mass: "101.1", group: "transition-metal", category: "Transition Metal", period: 5, col: 8, discovered: "1844", discoverer: "Karl Ernst Claus" },
-            { num: 45, sym: "Rh", name: "Rhodium", mass: "102.9", group: "transition-metal", category: "Transition Metal", period: 5, col: 9, discovered: "1803", discoverer: "William Hyde Wollaston" },
-            { num: 46, sym: "Pd", name: "Palladium", mass: "106.4", group: "transition-metal", category: "Transition Metal", period: 5, col: 10, discovered: "1803", discoverer: "William Hyde Wollaston" },
-            { num: 47, sym: "Ag", name: "Silver", mass: "107.8", group: "transition-metal", category: "Transition Metal", period: 5, col: 11, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 48, sym: "Cd", name: "Cadmium", mass: "112.4", group: "transition-metal", category: "Transition Metal", period: 5, col: 12, discovered: "1817", discoverer: "Karl Samuel Leberecht Hermann" },
-            { num: 49, sym: "In", name: "Indium", mass: "114.8", group: "post-transition", category: "Post-transition Metal", period: 5, col: 13, discovered: "1863", discoverer: "Reich & Richter" },
-            { num: 50, sym: "Sn", name: "Tin", mass: "118.7", group: "post-transition", category: "Post-transition Metal", period: 5, col: 14, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 51, sym: "Sb", name: "Antimony", mass: "121.7", group: "metalloid", category: "Metalloid", period: 5, col: 15, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 52, sym: "Te", name: "Tellurium", mass: "127.6", group: "metalloid", category: "Metalloid", period: 5, col: 16, discovered: "1782", discoverer: "Franz-Joseph Müller von Reichenstein" },
-            { num: 53, sym: "I", name: "Iodine", mass: "126.9", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 5, col: 17, discovered: "1811", discoverer: "Bernard Courtois" },
-            { num: 54, sym: "Xe", name: "Xenon", mass: "131.2", group: "noble-gas", category: "Noble Gas", period: 5, col: 18, discovered: "1898", discoverer: "Ramsay & Travers" },
-            { num: 55, sym: "Cs", name: "Caesium", mass: "132.9", group: "alkali-metal", category: "Alkali Metal", period: 6, col: 1, discovered: "1860", discoverer: "Bunsen & Kirchhoff" },
-            { num: 56, sym: "Ba", name: "Barium", mass: "137.3", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 6, col: 2, discovered: "1808", discoverer: "Humphry Davy" },
-            { num: 72, sym: "Hf", name: "Hafnium", mass: "178.4", group: "transition-metal", category: "Transition Metal", period: 6, col: 4, discovered: "1922", discoverer: "Coster & de Hevesy" },
-            { num: 73, sym: "Ta", name: "Tantalum", mass: "180.9", group: "transition-metal", category: "Transition Metal", period: 6, col: 5, discovered: "1802", discoverer: "Anders Gustaf Ekeberg" },
-            { num: 74, sym: "W", name: "Tungsten", mass: "183.8", group: "transition-metal", category: "Transition Metal", period: 6, col: 6, discovered: "1781", discoverer: "Carl Wilhelm Scheele" },
-            { num: 75, sym: "Re", name: "Rhenium", mass: "186.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 7, discovered: "1925", discoverer: "Noddack, Tacke & Berg" },
-            { num: 76, sym: "Os", name: "Osmium", mass: "190.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 8, discovered: "1803", discoverer: "Smithson Tennant" },
-            { num: 77, sym: "Ir", name: "Iridium", mass: "192.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 9, discovered: "1803", discoverer: "Smithson Tennant" },
-            { num: 78, sym: "Pt", name: "Platinum", mass: "195.1", group: "transition-metal", category: "Transition Metal", period: 6, col: 10, discovered: "1803", discoverer: "Smithson Tennant" },
-            { num: 79, sym: "Au", name: "Gold", mass: "196.9", group: "transition-metal", category: "Transition Metal", period: 6, col: 11, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 80, sym: "Hg", name: "Mercury", mass: "200.5", group: "transition-metal", category: "Transition Metal", period: 6, col: 12, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 81, sym: "Tl", name: "Thallium", mass: "204.3", group: "post-transition", category: "Post-transition Metal", period: 6, col: 13, discovered: "1861", discoverer: "William Crookes" },
-            { num: 82, sym: "Pb", name: "Lead", mass: "207.2", group: "post-transition", category: "Post-transition Metal", period: 6, col: 14, discovered: "Ancient", discoverer: "Unknown" },
-            { num: 83, sym: "Bi", name: "Bismuth", mass: "208.9", group: "post-transition", category: "Post-transition Metal", period: 6, col: 15, discovered: "Ancient", discoverer: "Claude François Geoffroy" },
-            { num: 84, sym: "Po", name: "Polonium", mass: "209.0", group: "post-transition", category: "Post-transition Metal", period: 6, col: 16, discovered: "1898", discoverer: "Marie and Pierre Curie" },
-            { num: 85, sym: "At", name: "Astatine", mass: "210.0", group: "metalloid", category: "Metalloid", period: 6, col: 17, discovered: "1940", discoverer: "Dale R. Corson" },
-            { num: 86, sym: "Rn", name: "Radon", mass: "222.0", group: "noble-gas", category: "Noble Gas", period: 6, col: 18, discovered: "1899", discoverer: "Ernest Rutherford" },
-            { num: 87, sym: "Fr", name: "Francium", mass: "223.0", group: "alkali-metal", category: "Alkali Metal", period: 7, col: 1, discovered: "1939", discoverer: "Marguerite Perey" },
-            { num: 88, sym: "Ra", name: "Radium", mass: "226.0", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 7, col: 2, discovered: "1898", discoverer: "Marie and Pierre Curie" },
-            { num: 104, sym: "Rf", name: "Rutherfordium", mass: "267.0", group: "unknown", category: "Unknown Properties", period: 7, col: 4, discovered: "1964", discoverer: "JINR / LBNL" },
-            { num: 105, sym: "Db", name: "Dubnium", mass: "268.0", group: "unknown", category: "Unknown Properties", period: 7, col: 5, discovered: "1967", discoverer: "JINR / LBNL" },
-            { num: 106, sym: "Sg", name: "Seaborgium", mass: "269.0", group: "unknown", category: "Unknown Properties", period: 7, col: 6, discovered: "1974", discoverer: "LBNL" },
-            { num: 107, sym: "Bh", name: "Bohrium", mass: "270.0", group: "unknown", category: "Unknown Properties", period: 7, col: 7, discovered: "1981", discoverer: "GSI" },
-            { num: 108, sym: "Hs", name: "Hassium", mass: "269.0", group: "unknown", category: "Unknown Properties", period: 7, col: 8, discovered: "1984", discoverer: "GSI" },
-            { num: 109, sym: "Mt", name: "Meitnerium", mass: "278.0", group: "unknown", category: "Unknown Properties", period: 7, col: 9, discovered: "1982", discoverer: "GSI" },
-            { num: 110, sym: "Ds", name: "Darmstadtium", mass: "281.0", group: "unknown", category: "Unknown Properties", period: 7, col: 10, discovered: "1994", discoverer: "GSI" },
-            { num: 111, sym: "Rg", name: "Roentgenium", mass: "282.0", group: "unknown", category: "Unknown Properties", period: 7, col: 11, discovered: "1994", discoverer: "GSI" },
-            { num: 112, sym: "Cn", name: "Copernicium", mass: "285.0", group: "unknown", category: "Unknown Properties", period: 7, col: 12, discovered: "1996", discoverer: "GSI" },
-            { num: 113, sym: "Nh", name: "Nihonium", mass: "286.0", group: "unknown", category: "Unknown Properties", period: 7, col: 13, discovered: "2003", discoverer: "RIKEN" },
-            { num: 114, sym: "Fl", name: "Flerovium", mass: "289.0", group: "unknown", category: "Unknown Properties", period: 7, col: 14, discovered: "1998", discoverer: "JINR" },
-            { num: 115, sym: "Mc", name: "Moscovium", mass: "290.0", group: "unknown", category: "Unknown Properties", period: 7, col: 15, discovered: "2003", discoverer: "JINR / LLNL" },
-            { num: 116, sym: "Lv", name: "Livermorium", mass: "293.0", group: "unknown", category: "Unknown Properties", period: 7, col: 16, discovered: "2000", discoverer: "JINR / LLNL" },
-            { num: 117, sym: "Ts", name: "Tennessine", mass: "294.0", group: "unknown", category: "Unknown Properties", period: 7, col: 17, discovered: "2010", discoverer: "JINR / LLNL / ORNL" },
-            { num: 118, sym: "Og", name: "Oganesson", mass: "294.0", group: "unknown", category: "Unknown Properties", period: 7, col: 18, discovered: "2002", discoverer: "JINR / LLNL" },
+            { num: 1, sym: "H", name: "Hydrogen", mass: "1.008", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 1, col: 1, discovered: "1766", discoverer: "Henry Cavendish", mp: "-259.1 °C", bp: "-252.9 °C" },
+            { num: 2, sym: "He", name: "Helium", mass: "4.002", group: "noble-gas", category: "Noble Gas", period: 1, col: 18, discovered: "1868", discoverer: "Janssen & Lockyer", mp: "-272.2 °C", bp: "-268.9 °C" },
+            { num: 3, sym: "Li", name: "Lithium", mass: "6.94", group: "alkali-metal", category: "Alkali Metal", period: 2, col: 1, discovered: "1817", discoverer: "Johan August Arfwedson", mp: "180.5 °C", bp: "1342 °C" },
+            { num: 4, sym: "Be", name: "Beryllium", mass: "9.012", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 2, col: 2, discovered: "1798", discoverer: "Louis Nicolas Vauquelin", mp: "1287 °C", bp: "2469 °C" },
+            { num: 5, sym: "B", name: "Boron", mass: "10.81", group: "metalloid", category: "Metalloid", period: 2, col: 13, discovered: "1808", discoverer: "Gay-Lussac & Thénard", mp: "2075 °C", bp: "4000 °C" },
+            { num: 6, sym: "C", name: "Carbon", mass: "12.01", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 14, discovered: "Ancient", discoverer: "Unknown", mp: "3550 °C", bp: "4827 °C" },
+            { num: 7, sym: "N", name: "Nitrogen", mass: "14.00", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 15, discovered: "1772", discoverer: "Daniel Rutherford", mp: "-210.0 °C", bp: "-195.8 °C" },
+            { num: 8, sym: "O", name: "Oxygen", mass: "15.99", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 16, discovered: "1774", discoverer: "Joseph Priestley", mp: "-218.8 °C", bp: "-183.0 °C" },
+            { num: 9, sym: "F", name: "Fluorine", mass: "18.99", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 17, discovered: "1886", discoverer: "Henri Moissan", mp: "-219.6 °C", bp: "-188.1 °C" },
+            { num: 10, sym: "Ne", name: "Neon", mass: "20.18", group: "noble-gas", category: "Noble Gas", period: 2, col: 18, discovered: "1898", discoverer: "Ramsay & Travers", mp: "-248.6 °C", bp: "-246.1 °C" },
+            { num: 11, sym: "Na", name: "Sodium", mass: "22.99", group: "alkali-metal", category: "Alkali Metal", period: 3, col: 1, discovered: "1807", discoverer: "Humphry Davy", mp: "97.8 °C", bp: "883 °C" },
+            { num: 12, sym: "Mg", name: "Magnesium", mass: "24.30", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 3, col: 2, discovered: "1755", discoverer: "Joseph Black", mp: "650 °C", bp: "1090 °C" },
+            { num: 13, sym: "Al", name: "Aluminium", mass: "26.98", group: "post-transition", category: "Post-transition Metal", period: 3, col: 13, discovered: "1825", discoverer: "Hans Christian Ørsted", mp: "660.3 °C", bp: "2519 °C" },
+            { num: 14, sym: "Si", name: "Silicon", mass: "28.08", group: "metalloid", category: "Metalloid", period: 3, col: 14, discovered: "1823", discoverer: "Jöns Jacob Berzelius", mp: "1414 °C", bp: "3265 °C" },
+            { num: 15, sym: "P", name: "Phosphorus", mass: "30.97", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 15, discovered: "1669", discoverer: "Hennig Brand", mp: "44.1 °C", bp: "280.5 °C" },
+            { num: 16, sym: "S", name: "Sulfur", mass: "32.06", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 16, discovered: "Ancient", discoverer: "Unknown", mp: "115.2 °C", bp: "444.6 °C" },
+            { num: 17, sym: "Cl", name: "Chlorine", mass: "35.45", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 17, discovered: "1774", discoverer: "Carl Wilhelm Scheele", mp: "-101.5 °C", bp: "-34.0 °C" },
+            { num: 18, sym: "Ar", name: "Argon", mass: "39.94", group: "noble-gas", category: "Noble Gas", period: 3, col: 18, discovered: "1894", discoverer: "Ramsay & Rayleigh", mp: "-189.3 °C", bp: "-185.8 °C" },
+            { num: 19, sym: "K", name: "Potassium", mass: "39.09", group: "alkali-metal", category: "Alkali Metal", period: 4, col: 1, discovered: "1807", discoverer: "Humphry Davy", mp: "63.5 °C", bp: "759 °C" },
+            { num: 20, sym: "Ca", name: "Calcium", mass: "40.07", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 4, col: 2, discovered: "1808", discoverer: "Humphry Davy", mp: "842 °C", bp: "1484 °C" },
+            { num: 21, sym: "Sc", name: "Scandium", mass: "44.95", group: "transition-metal", category: "Transition Metal", period: 4, col: 3, discovered: "1879", discoverer: "Lars Fredrik Nilson", mp: "1541 °C", bp: "2830 °C" },
+            { num: 22, sym: "Ti", name: "Titanium", mass: "47.86", group: "transition-metal", category: "Transition Metal", period: 4, col: 4, discovered: "1791", discoverer: "William Gregor", mp: "1668 °C", bp: "3287 °C" },
+            { num: 23, sym: "V", name: "Vanadium", mass: "50.94", group: "transition-metal", category: "Transition Metal", period: 4, col: 5, discovered: "1801", discoverer: "Andrés Manuel del Río", mp: "1910 °C", bp: "3407 °C" },
+            { num: 24, sym: "Cr", name: "Chromium", mass: "51.99", group: "transition-metal", category: "Transition Metal", period: 4, col: 6, discovered: "1797", discoverer: "Louis Nicolas Vauquelin", mp: "1907 °C", bp: "2671 °C" },
+            { num: 25, sym: "Mn", name: "Manganese", mass: "54.93", group: "transition-metal", category: "Transition Metal", period: 4, col: 7, discovered: "1774", discoverer: "Carl Wilhelm Scheele", mp: "1246 °C", bp: "2061 °C" },
+            { num: 26, sym: "Fe", name: "Iron", mass: "55.84", group: "transition-metal", category: "Transition Metal", period: 4, col: 8, discovered: "Ancient", discoverer: "Unknown", mp: "1538 °C", bp: "2862 °C" },
+            { num: 27, sym: "Co", name: "Cobalt", mass: "58.93", group: "transition-metal", category: "Transition Metal", period: 4, col: 9, discovered: "1735", discoverer: "Georg Brandt", mp: "1495 °C", bp: "2927 °C" },
+            { num: 28, sym: "Ni", name: "Nickel", mass: "58.69", group: "transition-metal", category: "Transition Metal", period: 4, col: 10, discovered: "1751", discoverer: "Axel Fredrik Cronstedt", mp: "1455 °C", bp: "2913 °C" },
+            { num: 29, sym: "Cu", name: "Copper", mass: "63.54", group: "transition-metal", category: "Transition Metal", period: 4, col: 11, discovered: "Ancient", discoverer: "Unknown", mp: "1085 °C", bp: "2562 °C" },
+            { num: 30, sym: "Zn", name: "Zinc", mass: "65.38", group: "transition-metal", category: "Transition Metal", period: 4, col: 12, discovered: "Ancient", discoverer: "Indian Chemists", mp: "419.5 °C", bp: "907 °C" },
+            { num: 31, sym: "Ga", name: "Gallium", mass: "69.72", group: "post-transition", category: "Post-transition Metal", period: 4, col: 13, discovered: "1875", discoverer: "Paul-Émile Lecoq de Boisbaudran", mp: "29.8 °C", bp: "2204 °C" },
+            { num: 32, sym: "Ge", name: "Germanium", mass: "72.63", group: "metalloid", category: "Metalloid", period: 4, col: 14, discovered: "1886", discoverer: "Clemens Winkler", mp: "938.3 °C", bp: "2833 °C" },
+            { num: 33, sym: "As", name: "Arsenic", mass: "74.92", group: "metalloid", category: "Metalloid", period: 4, col: 15, discovered: "Ancient", discoverer: "Albertus Magnus", mp: "817 °C", bp: "Sublimes 614 °C" },
+            { num: 34, sym: "Se", name: "Selenium", mass: "78.97", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 4, col: 16, discovered: "1817", discoverer: "Berzelius & Gahn", mp: "221 °C", bp: "685 °C" },
+            { num: 35, sym: "Br", name: "Bromine", mass: "79.90", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 4, col: 17, discovered: "1826", discoverer: "Balard & Gmelin", mp: "-7.2 °C", bp: "58.8 °C" },
+            { num: 36, sym: "Kr", name: "Krypton", mass: "83.79", group: "noble-gas", category: "Noble Gas", period: 4, col: 18, discovered: "1898", discoverer: "Ramsay & Travers", mp: "-157.4 °C", bp: "-153.2 °C" },
+            { num: 37, sym: "Rb", name: "Rubidium", mass: "85.46", group: "alkali-metal", category: "Alkali Metal", period: 5, col: 1, discovered: "1861", discoverer: "Bunsen & Kirchhoff", mp: "39.3 °C", bp: "688 °C" },
+            { num: 38, sym: "Sr", name: "Strontium", mass: "87.62", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 5, col: 2, discovered: "1790", discoverer: "Adair Crawford", mp: "777 °C", bp: "1382 °C" },
+            { num: 39, sym: "Y", name: "Yttrium", mass: "88.90", group: "transition-metal", category: "Transition Metal", period: 5, col: 3, discovered: "1794", discoverer: "Johan Gadolin", mp: "1526 °C", bp: "3338 °C" },
+            { num: 40, sym: "Zr", name: "Zirconium", mass: "91.22", group: "transition-metal", category: "Transition Metal", period: 5, col: 4, discovered: "1789", discoverer: "Martin Heinrich Klaproth", mp: "1855 °C", bp: "4409 °C" },
+            { num: 41, sym: "Nb", name: "Niobium", mass: "92.91", group: "transition-metal", category: "Transition Metal", period: 5, col: 5, discovered: "1801", discoverer: "Charles Hatchett", mp: "2477 °C", bp: "4744 °C" },
+            { num: 42, sym: "Mo", name: "Molybdenum", mass: "95.95", group: "transition-metal", category: "Transition Metal", period: 5, col: 6, discovered: "1778", discoverer: "Carl Wilhelm Scheele", mp: "2623 °C", bp: "4639 °C" },
+            { num: 43, sym: "Tc", name: "Technetium", mass: "98.00", group: "transition-metal", category: "Transition Metal", period: 5, col: 7, discovered: "1937", discoverer: "Perrier & Segrè", mp: "2157 °C", bp: "4265 °C" },
+            { num: 44, sym: "Ru", name: "Ruthenium", mass: "101.1", group: "transition-metal", category: "Transition Metal", period: 5, col: 8, discovered: "1844", discoverer: "Karl Ernst Claus", mp: "2334 °C", bp: "4150 °C" },
+            { num: 45, sym: "Rh", name: "Rhodium", mass: "102.9", group: "transition-metal", category: "Transition Metal", period: 5, col: 9, discovered: "1803", discoverer: "William Hyde Wollaston", mp: "1964 °C", bp: "3695 °C" },
+            { num: 46, sym: "Pd", name: "Palladium", mass: "106.4", group: "transition-metal", category: "Transition Metal", period: 5, col: 10, discovered: "1803", discoverer: "William Hyde Wollaston", mp: "1555 °C", bp: "2963 °C" },
+            { num: 47, sym: "Ag", name: "Silver", mass: "107.8", group: "transition-metal", category: "Transition Metal", period: 5, col: 11, discovered: "Ancient", discoverer: "Unknown", mp: "961.8 °C", bp: "2162 °C" },
+            { num: 48, sym: "Cd", name: "Cadmium", mass: "112.4", group: "transition-metal", category: "Transition Metal", period: 5, col: 12, discovered: "1817", discoverer: "Karl Samuel Leberecht Hermann", mp: "321.1 °C", bp: "767 °C" },
+            { num: 49, sym: "In", name: "Indium", mass: "114.8", group: "post-transition", category: "Post-transition Metal", period: 5, col: 13, discovered: "1863", discoverer: "Reich & Richter", mp: "156.6 °C", bp: "2072 °C" },
+            { num: 50, sym: "Sn", name: "Tin", mass: "118.7", group: "post-transition", category: "Post-transition Metal", period: 5, col: 14, discovered: "Ancient", discoverer: "Unknown", mp: "231.9 °C", bp: "2602 °C" },
+            { num: 51, sym: "Sb", name: "Antimony", mass: "121.7", group: "metalloid", category: "Metalloid", period: 5, col: 15, discovered: "Ancient", discoverer: "Unknown", mp: "630.6 °C", bp: "1587 °C" },
+            { num: 52, sym: "Te", name: "Tellurium", mass: "127.6", group: "metalloid", category: "Metalloid", period: 5, col: 16, discovered: "1782", discoverer: "Franz-Joseph Müller von Reichenstein", mp: "449.5 °C", bp: "988 °C" },
+            { num: 53, sym: "I", name: "Iodine", mass: "126.9", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 5, col: 17, discovered: "1811", discoverer: "Bernard Courtois", mp: "113.7 °C", bp: "184.3 °C" },
+            { num: 54, sym: "Xe", name: "Xenon", mass: "131.2", group: "noble-gas", category: "Noble Gas", period: 5, col: 18, discovered: "1898", discoverer: "Ramsay & Travers", mp: "-111.7 °C", bp: "-108.1 °C" },
+            { num: 55, sym: "Cs", name: "Caesium", mass: "132.9", group: "alkali-metal", category: "Alkali Metal", period: 6, col: 1, discovered: "1860", discoverer: "Bunsen & Kirchhoff", mp: "28.4 °C", bp: "671 °C" },
+            { num: 56, sym: "Ba", name: "Barium", mass: "137.3", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 6, col: 2, discovered: "1808", discoverer: "Humphry Davy", mp: "727 °C", bp: "1897 °C" },
+            { num: 72, sym: "Hf", name: "Hafnium", mass: "178.4", group: "transition-metal", category: "Transition Metal", period: 6, col: 4, discovered: "1922", discoverer: "Coster & de Hevesy", mp: "2233 °C", bp: "4603 °C" },
+            { num: 73, sym: "Ta", name: "Tantalum", mass: "180.9", group: "transition-metal", category: "Transition Metal", period: 6, col: 5, discovered: "1802", discoverer: "Anders Gustaf Ekeberg", mp: "3017 °C", bp: "5458 °C" },
+            { num: 74, sym: "W", name: "Tungsten", mass: "183.8", group: "transition-metal", category: "Transition Metal", period: 6, col: 6, discovered: "1781", discoverer: "Carl Wilhelm Scheele", mp: "3422 °C", bp: "5555 °C" },
+            { num: 75, sym: "Re", name: "Rhenium", mass: "186.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 7, discovered: "1925", discoverer: "Noddack, Tacke & Berg", mp: "3186 °C", bp: "5596 °C" },
+            { num: 76, sym: "Os", name: "Osmium", mass: "190.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 8, discovered: "1803", discoverer: "Smithson Tennant", mp: "3033 °C", bp: "5012 °C" },
+            { num: 77, sym: "Ir", name: "Iridium", mass: "192.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 9, discovered: "1803", discoverer: "Smithson Tennant", mp: "2446 °C", bp: "4428 °C" },
+            { num: 78, sym: "Pt", name: "Platinum", mass: "195.1", group: "transition-metal", category: "Transition Metal", period: 6, col: 10, discovered: "1803", discoverer: "Smithson Tennant", mp: "1768 °C", bp: "3825 °C" },
+            { num: 79, sym: "Au", name: "Gold", mass: "196.9", group: "transition-metal", category: "Transition Metal", period: 6, col: 11, discovered: "Ancient", discoverer: "Unknown", mp: "1064 °C", bp: "2856 °C" },
+            { num: 80, sym: "Hg", name: "Mercury", mass: "200.5", group: "transition-metal", category: "Transition Metal", period: 6, col: 12, discovered: "Ancient", discoverer: "Unknown", mp: "-38.8 °C", bp: "356.7 °C" },
+            { num: 81, sym: "Tl", name: "Thallium", mass: "204.3", group: "post-transition", category: "Post-transition Metal", period: 6, col: 13, discovered: "1861", discoverer: "William Crookes", mp: "304 °C", bp: "1473 °C" },
+            { num: 82, sym: "Pb", name: "Lead", mass: "207.2", group: "post-transition", category: "Post-transition Metal", period: 6, col: 14, discovered: "Ancient", discoverer: "Unknown", mp: "327.5 °C", bp: "1749 °C" },
+            { num: 83, sym: "Bi", name: "Bismuth", mass: "208.9", group: "post-transition", category: "Post-transition Metal", period: 6, col: 15, discovered: "Ancient", discoverer: "Claude François Geoffroy", mp: "271.4 °C", bp: "1564 °C" },
+            { num: 84, sym: "Po", name: "Polonium", mass: "209.0", group: "post-transition", category: "Post-transition Metal", period: 6, col: 16, discovered: "1898", discoverer: "Marie and Pierre Curie", mp: "254 °C", bp: "962 °C" },
+            { num: 85, sym: "At", name: "Astatine", mass: "210.0", group: "metalloid", category: "Metalloid", period: 6, col: 17, discovered: "1940", discoverer: "Dale R. Corson", mp: "302 °C", bp: "337 °C" },
+            { num: 86, sym: "Rn", name: "Radon", mass: "222.0", group: "noble-gas", category: "Noble Gas", period: 6, col: 18, discovered: "1899", discoverer: "Ernest Rutherford", mp: "-71 °C", bp: "-61.7 °C" },
+            { num: 87, sym: "Fr", name: "Francium", mass: "223.0", group: "alkali-metal", category: "Alkali Metal", period: 7, col: 1, discovered: "1939", discoverer: "Marguerite Perey", mp: "27 °C", bp: "677 °C" },
+            { num: 88, sym: "Ra", name: "Radium", mass: "226.0", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 7, col: 2, discovered: "1898", discoverer: "Marie and Pierre Curie", mp: "700 °C", bp: "1737 °C" },
+            { num: 104, sym: "Rf", name: "Rutherfordium", mass: "267.0", group: "unknown", category: "Unknown Properties", period: 7, col: 4, discovered: "1964", discoverer: "JINR / LBNL", mp: "Unknown", bp: "Unknown" },
+            { num: 105, sym: "Db", name: "Dubnium", mass: "268.0", group: "unknown", category: "Unknown Properties", period: 7, col: 5, discovered: "1967", discoverer: "JINR / LBNL", mp: "Unknown", bp: "Unknown" },
+            { num: 106, sym: "Sg", name: "Seaborgium", mass: "269.0", group: "unknown", category: "Unknown Properties", period: 7, col: 6, discovered: "1974", discoverer: "LBNL", mp: "Unknown", bp: "Unknown" },
+            { num: 107, sym: "Bh", name: "Bohrium", mass: "270.0", group: "unknown", category: "Unknown Properties", period: 7, col: 7, discovered: "1981", discoverer: "GSI", mp: "Unknown", bp: "Unknown" },
+            { num: 108, sym: "Hs", name: "Hassium", mass: "269.0", group: "unknown", category: "Unknown Properties", period: 7, col: 8, discovered: "1984", discoverer: "GSI", mp: "Unknown", bp: "Unknown" },
+            { num: 109, sym: "Mt", name: "Meitnerium", mass: "278.0", group: "unknown", category: "Unknown Properties", period: 7, col: 9, discovered: "1982", discoverer: "GSI", mp: "Unknown", bp: "Unknown" },
+            { num: 110, sym: "Ds", name: "Darmstadtium", mass: "281.0", group: "unknown", category: "Unknown Properties", period: 7, col: 10, discovered: "1994", discoverer: "GSI", mp: "Unknown", bp: "Unknown" },
+            { num: 111, sym: "Rg", name: "Roentgenium", mass: "282.0", group: "unknown", category: "Unknown Properties", period: 7, col: 11, discovered: "1994", discoverer: "GSI", mp: "Unknown", bp: "Unknown" },
+            { num: 112, sym: "Cn", name: "Copernicium", mass: "285.0", group: "unknown", category: "Unknown Properties", period: 7, col: 12, discovered: "1996", discoverer: "GSI", mp: "Unknown", bp: "Unknown" },
+            { num: 113, sym: "Nh", name: "Nihonium", mass: "286.0", group: "unknown", category: "Unknown Properties", period: 7, col: 13, discovered: "2003", discoverer: "RIKEN", mp: "Unknown", bp: "Unknown" },
+            { num: 114, sym: "Fl", name: "Flerovium", mass: "289.0", group: "unknown", category: "Unknown Properties", period: 7, col: 14, discovered: "1998", discoverer: "JINR", mp: "Unknown", bp: "Unknown" },
+            { num: 115, sym: "Mc", name: "Moscovium", mass: "290.0", group: "unknown", category: "Unknown Properties", period: 7, col: 15, discovered: "2003", discoverer: "JINR / LLNL", mp: "Unknown", bp: "Unknown" },
+            { num: 116, sym: "Lv", name: "Livermorium", mass: "293.0", group: "unknown", category: "Unknown Properties", period: 7, col: 16, discovered: "2000", discoverer: "JINR / LLNL", mp: "Unknown", bp: "Unknown" },
+            { num: 117, sym: "Ts", name: "Tennessine", mass: "294.0", group: "unknown", category: "Unknown Properties", period: 7, col: 17, discovered: "2010", discoverer: "JINR / LLNL / ORNL", mp: "Unknown", bp: "Unknown" },
+            { num: 118, sym: "Og", name: "Oganesson", mass: "294.0", group: "unknown", category: "Unknown Properties", period: 7, col: 18, discovered: "2002", discoverer: "JINR / LLNL", mp: "Unknown", bp: "Unknown" },
 
             // Lanthanide Series Elements
-            { num: 57, sym: "La", name: "Lanthanum", mass: "138.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 3, isLanthanide: true, discovered: "1839", discoverer: "Carl Gustaf Mosander" },
-            { num: 58, sym: "Ce", name: "Cerium", mass: "140.1", group: "lanthanide", category: "Lanthanide", period: 6, col: 4, isLanthanide: true, discovered: "1803", discoverer: "Berzelius & Hisinger" },
-            { num: 59, sym: "Pr", name: "Praseodymium", mass: "140.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 5, isLanthanide: true, discovered: "1885", discoverer: "Carl Auer von Welsbach" },
-            { num: 60, sym: "Nd", name: "Neodymium", mass: "144.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 6, isLanthanide: true, discovered: "1885", discoverer: "Carl Auer von Welsbach" },
-            { num: 61, sym: "Pm", name: "Promethium", mass: "145.0", group: "lanthanide", category: "Lanthanide", period: 6, col: 7, isLanthanide: true, discovered: "1945", discoverer: "Marinsky, Glendenin & Coryell" },
-            { num: 62, sym: "Sm", name: "Samarium", mass: "150.3", group: "lanthanide", category: "Lanthanide", period: 6, col: 8, isLanthanide: true, discovered: "1879", discoverer: "Paul-Émile Lecoq de Boisbaudran" },
-            { num: 63, sym: "Eu", name: "Europium", mass: "151.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 9, isLanthanide: true, discovered: "1901", discoverer: "Eugène-Anatole Demarçay" },
-            { num: 64, sym: "Gd", name: "Gadolinium", mass: "157.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 10, isLanthanide: true, discovered: "1880", discoverer: "Jean Charles Galissard de Marignac" },
-            { num: 65, sym: "Tb", name: "Terbium", mass: "158.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 11, isLanthanide: true, discovered: "1843", discoverer: "Carl Gustaf Mosander" },
-            { num: 66, sym: "Dy", name: "Dysprosium", mass: "162.5", group: "lanthanide", category: "Lanthanide", period: 6, col: 12, isLanthanide: true, discovered: "1886", discoverer: "Paul-Émile Lecoq de Boisbaudran" },
-            { num: 67, sym: "Ho", name: "Holmium", mass: "164.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 13, isLanthanide: true, discovered: "1878", discoverer: "Jacques-Louis Soret" },
-            { num: 68, sym: "Er", name: "Erbium", mass: "167.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 14, isLanthanide: true, discovered: "1843", discoverer: "Carl Gustaf Mosander" },
-            { num: 69, sym: "Tm", name: "Thulium", mass: "168.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 15, isLanthanide: true, discovered: "1879", discoverer: "Per Teodor Cleve" },
-            { num: 70, sym: "Yb", name: "Ytterbium", mass: "173.0", group: "lanthanide", category: "Lanthanide", period: 6, col: 16, isLanthanide: true, discovered: "1878", discoverer: "Jean Charles Galissard de Marignac" },
-            { num: 71, sym: "Lu", name: "Lutetium", mass: "174.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 17, isLanthanide: true, discovered: "1907", discoverer: "Georges Urbain" },
+            { num: 57, sym: "La", name: "Lanthanum", mass: "138.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 3, isLanthanide: true, discovered: "1839", discoverer: "Carl Gustaf Mosander", mp: "920 °C", bp: "3464 °C" },
+            { num: 58, sym: "Ce", name: "Cerium", mass: "140.1", group: "lanthanide", category: "Lanthanide", period: 6, col: 4, isLanthanide: true, discovered: "1803", discoverer: "Berzelius & Hisinger", mp: "795 °C", bp: "3443 °C" },
+            { num: 59, sym: "Pr", name: "Praseodymium", mass: "140.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 5, isLanthanide: true, discovered: "1885", discoverer: "Carl Auer von Welsbach", mp: "935 °C", bp: "3130 °C" },
+            { num: 60, sym: "Nd", name: "Neodymium", mass: "144.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 6, isLanthanide: true, discovered: "1885", discoverer: "Carl Auer von Welsbach", mp: "1024 °C", bp: "3074 °C" },
+            { num: 61, sym: "Pm", name: "Promethium", mass: "145.0", group: "lanthanide", category: "Lanthanide", period: 6, col: 7, isLanthanide: true, discovered: "1945", discoverer: "Marinsky, Glendenin & Coryell", mp: "1042 °C", bp: "3000 °C" },
+            { num: 62, sym: "Sm", name: "Samarium", mass: "150.3", group: "lanthanide", category: "Lanthanide", period: 6, col: 8, isLanthanide: true, discovered: "1879", discoverer: "Paul-Émile Lecoq de Boisbaudran", mp: "1072 °C", bp: "1903 °C" },
+            { num: 63, sym: "Eu", name: "Europium", mass: "151.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 9, isLanthanide: true, discovered: "1901", discoverer: "Eugène-Anatole Demarçay", mp: "826 °C", bp: "1529 °C" },
+            { num: 64, sym: "Gd", name: "Gadolinium", mass: "157.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 10, isLanthanide: true, discovered: "1880", discoverer: "Jean Charles Galissard de Marignac", mp: "1312 °C", bp: "3250 °C" },
+            { num: 65, sym: "Tb", name: "Terbium", mass: "158.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 11, isLanthanide: true, discovered: "1843", discoverer: "Carl Gustaf Mosander", mp: "1356 °C", bp: "3123 °C" },
+            { num: 66, sym: "Dy", name: "Dysprosium", mass: "162.5", group: "lanthanide", category: "Lanthanide", period: 6, col: 12, isLanthanide: true, discovered: "1886", discoverer: "Paul-Émile Lecoq de Boisbaudran", mp: "1407 °C", bp: "2562 °C" },
+            { num: 67, sym: "Ho", name: "Holmium", mass: "164.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 13, isLanthanide: true, discovered: "1878", discoverer: "Jacques-Louis Soret", mp: "1461 °C", bp: "2600 °C" },
+            { num: 68, sym: "Er", name: "Erbium", mass: "167.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 14, isLanthanide: true, discovered: "1843", discoverer: "Carl Gustaf Mosander", mp: "1529 °C", bp: "2868 °C" },
+            { num: 69, sym: "Tm", name: "Thulium", mass: "168.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 15, isLanthanide: true, discovered: "1879", discoverer: "Per Teodor Cleve", mp: "1545 °C", bp: "1950 °C" },
+            { num: 70, sym: "Yb", name: "Ytterbium", mass: "173.0", group: "lanthanide", category: "Lanthanide", period: 6, col: 16, isLanthanide: true, discovered: "1878", discoverer: "Jean Charles Galissard de Marignac", mp: "824 °C", bp: "1196 °C" },
+            { num: 71, sym: "Lu", name: "Lutetium", mass: "174.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 17, isLanthanide: true, discovered: "1907", discoverer: "Georges Urbain", mp: "1652 °C", bp: "3402 °C" },
 
             // Actinide Series Elements
-            { num: 89, sym: "Ac", name: "Actinium", mass: "227.0", group: "actinide", category: "Actinide", period: 7, col: 3, isActinide: true, discovered: "1899", discoverer: "André-Louis Debierne" },
-            { num: 90, sym: "Th", name: "Thorium", mass: "232.0", group: "actinide", category: "Actinide", period: 7, col: 4, isActinide: true, discovered: "1829", discoverer: "Jöns Jacob Berzelius" },
-            { num: 91, sym: "Pa", name: "Protactinium", mass: "231.0", group: "actinide", category: "Actinide", period: 7, col: 5, isActinide: true, discovered: "1913", discoverer: "Fajans & Göhring" },
-            { num: 92, sym: "U", name: "Uranium", mass: "238.0", group: "actinide", category: "Actinide", period: 7, col: 6, isActinide: true, discovered: "1789", discoverer: "Martin Heinrich Klaproth" },
-            { num: 93, sym: "Np", name: "Neptunium", mass: "237.0", group: "actinide", category: "Actinide", period: 7, col: 7, isActinide: true, discovered: "1940", discoverer: "McMillan & Abelson" },
-            { num: 94, sym: "Pu", name: "Plutonium", mass: "244.0", group: "actinide", category: "Actinide", period: 7, col: 8, isActinide: true, discovered: "1940", discoverer: "Glenn T. Seaborg" },
-            { num: 95, sym: "Am", name: "Americium", mass: "243.0", group: "actinide", category: "Actinide", period: 7, col: 9, isActinide: true, discovered: "1944", discoverer: "Glenn T. Seaborg" },
-            { num: 96, sym: "Cm", name: "Curium", mass: "247.0", group: "actinide", category: "Actinide", period: 7, col: 10, isActinide: true, discovered: "1944", discoverer: "Glenn T. Seaborg" },
-            { num: 97, sym: "Bk", name: "Berkelium", mass: "247.0", group: "actinide", category: "Actinide", period: 7, col: 11, isActinide: true, discovered: "1949", discoverer: "Glenn T. Seaborg" },
-            { num: 98, sym: "Cf", name: "Californium", mass: "251.0", group: "actinide", category: "Actinide", period: 7, col: 12, isActinide: true, discovered: "1950", discoverer: "Glenn T. Seaborg" },
-            { num: 99, sym: "Es", name: "Einsteinium", mass: "252.0", group: "actinide", category: "Actinide", period: 7, col: 13, isActinide: true, discovered: "1952", discoverer: "Albert Ghiorso" },
-            { num: 100, sym: "Fm", name: "Fermium", mass: "257.0", group: "actinide", category: "Actinide", period: 7, col: 14, isActinide: true, discovered: "1952", discoverer: "Albert Ghiorso" },
-            { num: 101, sym: "Md", name: "Mendelevium", mass: "258.0", group: "actinide", category: "Actinide", period: 7, col: 15, isActinide: true, discovered: "1955", discoverer: "Albert Ghiorso" },
-            { num: 102, sym: "No", name: "Nobelium", mass: "259.0", group: "actinide", category: "Actinide", period: 7, col: 16, isActinide: true, discovered: "1966", discoverer: "Flyorov et al." },
-            { num: 103, sym: "Lr", name: "Lawrencium", mass: "266.0", group: "actinide", category: "Actinide", period: 7, col: 17, isActinide: true, discovered: "1961", discoverer: "Albert Ghiorso" }
+            { num: 89, sym: "Ac", name: "Actinium", mass: "227.0", group: "actinide", category: "Actinide", period: 7, col: 3, isActinide: true, discovered: "1899", discoverer: "André-Louis Debierne", mp: "1050 °C", bp: "3200 °C" },
+            { num: 90, sym: "Th", name: "Thorium", mass: "232.0", group: "actinide", category: "Actinide", period: 7, col: 4, isActinide: true, discovered: "1829", discoverer: "Jöns Jacob Berzelius", mp: "1750 °C", bp: "4788 °C" },
+            { num: 91, sym: "Pa", name: "Protactinium", mass: "231.0", group: "actinide", category: "Actinide", period: 7, col: 5, isActinide: true, discovered: "1913", discoverer: "Fajans & Göhring", mp: "1572 °C", bp: "4000 °C" },
+            { num: 92, sym: "U", name: "Uranium", mass: "238.0", group: "actinide", category: "Actinide", period: 7, col: 6, isActinide: true, discovered: "1789", discoverer: "Martin Heinrich Klaproth", mp: "1132 °C", bp: "4131 °C" },
+            { num: 93, sym: "Np", name: "Neptunium", mass: "237.0", group: "actinide", category: "Actinide", period: 7, col: 7, isActinide: true, discovered: "1940", discoverer: "McMillan & Abelson", mp: "639 °C", bp: "4174 °C" },
+            { num: 94, sym: "Pu", name: "Plutonium", mass: "244.0", group: "actinide", category: "Actinide", period: 7, col: 8, isActinide: true, discovered: "1940", discoverer: "Glenn T. Seaborg", mp: "639.4 °C", bp: "3228 °C" },
+            { num: 95, sym: "Am", name: "Americium", mass: "243.0", group: "actinide", category: "Actinide", period: 7, col: 9, isActinide: true, discovered: "1944", discoverer: "Glenn T. Seaborg", mp: "1176 °C", bp: "2607 °C" },
+            { num: 96, sym: "Cm", name: "Curium", mass: "247.0", group: "actinide", category: "Actinide", period: 7, col: 10, isActinide: true, discovered: "1944", discoverer: "Glenn T. Seaborg", mp: "1340 °C", bp: "3110 °C" },
+            { num: 97, sym: "Bk", name: "Berkelium", mass: "247.0", group: "actinide", category: "Actinide", period: 7, col: 11, isActinide: true, discovered: "1949", discoverer: "Glenn T. Seaborg", mp: "986 °C", bp: "2627 °C" },
+            { num: 98, sym: "Cf", name: "Californium", mass: "251.0", group: "actinide", category: "Actinide", period: 7, col: 12, isActinide: true, discovered: "1950", discoverer: "Glenn T. Seaborg", mp: "900 °C", bp: "1470 °C" },
+            { num: 99, sym: "Es", name: "Einsteinium", mass: "252.0", group: "actinide", category: "Actinide", period: 7, col: 13, isActinide: true, discovered: "1952", discoverer: "Albert Ghiorso", mp: "860 °C", bp: "Unknown" },
+            { num: 100, sym: "Fm", name: "Fermium", mass: "257.0", group: "actinide", category: "Actinide", period: 7, col: 14, isActinide: true, discovered: "1952", discoverer: "Albert Ghiorso", mp: "1527 °C", bp: "Unknown" },
+            { num: 101, sym: "Md", name: "Mendelevium", mass: "258.0", group: "actinide", category: "Actinide", period: 7, col: 15, isActinide: true, discovered: "1955", discoverer: "Albert Ghiorso", mp: "827 °C", bp: "Unknown" },
+            { num: 102, sym: "No", name: "Nobelium", mass: "259.0", group: "actinide", category: "Actinide", period: 7, col: 16, isActinide: true, discovered: "1966", discoverer: "Flyorov et al.", mp: "827 °C", bp: "Unknown" },
+            { num: 103, sym: "Lr", name: "Lawrencium", mass: "266.0", group: "actinide", category: "Actinide", period: 7, col: 17, isActinide: true, discovered: "1961", discoverer: "Albert Ghiorso", mp: "1627 °C", bp: "Unknown" }
         ];
 
+        let animationFrameId = null;
         const grid = document.getElementById('table-grid');
 
         function generateMatrix() {
@@ -608,7 +672,7 @@
 
         function appendElement(data) {
             const block = document.createElement('div');
-            block.className = 'element';
+            block.className = `element cat-${data.group}`;
             block.innerHTML = `
                 <div class="element-top-meta">
                     <span>${data.num}</span>
@@ -621,15 +685,108 @@
             grid.appendChild(block);
         }
 
+        // FULL 2D PLANETARY ORBIT ATOM VISUALIZATION
+        function render2DAtomStructure(atomicNumber, hexCategoryColor) {
+            const canvas = document.getElementById('atom-2d-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            }
+            resize();
+
+            let orbitAngle = 0;
+
+            // Generate Bohr electron shell capacities configuration
+            let electronsLeft = atomicNumber;
+            const shells = [];
+            const shellCapacities = [2, 8, 18, 32, 32, 18, 8];
+            
+            for (let cap of shellCapacities) {
+                if (electronsLeft <= 0) break;
+                const count = Math.min(electronsLeft, cap);
+                shells.push(count);
+                electronsLeft -= count;
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                
+                orbitAngle += 0.015; // Smooth orbital progression speed
+
+                // 1. Draw central dense Nucleus
+                ctx.beginPath();
+                ctx.arc(cx, cy, 14, 0, Math.PI * 2);
+                ctx.fillStyle = '#ef4444'; // Protons color
+                ctx.shadowColor = '#ef4444';
+                ctx.shadowBlur = 12;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.beginPath();
+                ctx.arc(cx - 3, cy + 2, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#3b82f6'; // Neutrons overlap
+                ctx.fill();
+
+                // 2. Iterate and render planar 2D nested shell paths and their electrons
+                shells.forEach((count, shellIdx) => {
+                    const radius = 35 + (shellIdx * 22);
+                    
+                    // Draw continuous concentric orbit ring lines
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(115, 111, 141, 0.25)';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+
+                    // Distribute electrons perfectly along this specific orbital ring
+                    for (let i = 0; i < count; i++) {
+                        const individualOffset = (Math.PI * 2 / count) * i;
+                        // Alternating direction schemas for dynamic tracking aesthetics
+                        const currentAngle = (shellIdx % 2 === 0) ? (orbitAngle + individualOffset) : (-orbitAngle + individualOffset);
+                        
+                        const ex = cx + Math.cos(currentAngle) * radius;
+                        const ey = cy + Math.sin(currentAngle) * radius;
+
+                        // Draw moving electron particle dot
+                        ctx.beginPath();
+                        ctx.arc(ex, ey, 5, 0, Math.PI * 2);
+                        ctx.fillStyle = hexCategoryColor || '#6366f1';
+                        ctx.shadowColor = hexCategoryColor || '#6366f1';
+                        ctx.shadowBlur = 8;
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                });
+
+                animationFrameId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
         function updatePreviewMetrics(data, node) {
-            document.querySelectorAll('.element').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.element').forEach(n => {
+                n.classList.remove('active');
+                n.className = n.className.replace(/\bhighlight-\S+/g, '');
+            });
+            
             node.classList.add('active');
+
+            document.querySelectorAll(`.cat-${data.group}`).forEach(matchingNode => {
+                matchingNode.classList.add(`highlight-${data.group}`);
+            });
 
             document.getElementById('info-placeholder').style.display = 'none';
             const panel = document.getElementById('info-content');
             panel.classList.add('active');
 
-            // PLACE NUMBER & MASS IN THE TOP CORNERS OF THE ACTIVE ELEMENT DISPLAY
             document.getElementById('hero-num').innerText = data.num;
             document.getElementById('hero-mass').innerText = data.mass;
 
@@ -641,13 +798,24 @@
             document.getElementById('view-cat').innerText = data.category;
             document.getElementById('view-num').innerText = data.num;
             document.getElementById('view-mass-row').innerText = `${data.mass} u`;
-            document.getElementById('view-protons').innerText = data.num;
-            document.getElementById('view-electrons').innerText = data.num;
+            
+            const neutronCount = Math.max(0, Math.round(parseFloat(data.mass)) - data.num);
+            document.getElementById('view-neutrons').innerText = neutronCount;
+            
+            // SIMPLIFIED ENTRY DISPLAYING SINGLE NUMBER VALUATION
+            document.getElementById('view-protons-electrons').innerText = data.num;
+            
+            document.getElementById('view-melting').innerText = data.mp || "Unknown";
+            document.getElementById('view-boiling').innerText = data.bp || "Unknown";
             
             const positionText = data.isLanthanide || data.isActinide ? `Period ${data.period}, Block Series` : `Period ${data.period}, Group ${data.col}`;
             document.getElementById('view-pos').innerText = positionText;
             document.getElementById('view-year').innerText = data.discovered;
             document.getElementById('view-discoverer').innerText = data.discoverer;
+
+            const computedStyle = getComputedStyle(document.documentElement);
+            const hexColorToken = computedStyle.getPropertyValue(`--${data.group}`).trim();
+            render2DAtomStructure(data.num, hexColorToken);
         }
 
         generateMatrix();
