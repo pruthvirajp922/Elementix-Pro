@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementix Pro</title>
+    <style>
+        :root {
+            /* GLOBAL PALETTE CONFIGURATION */
+            --bg-color: #06050a;
+            --panel-bg: #0c0a14;
+            --card-bg: #131020;
+            --border-color: #1e1a33;
+            --text-main: #ffffff;
+            --text-muted: #736f8d;
+            
+            /* ORIGINAL VIBRANT ELEMENT CATEGORIES */
+            --reactive-nonmetal: #38bdf8;  
+            --noble-gas: #f43f5e;
+            --alkali-metal: #10b981;
+            --alkaline-earth: #ff7823;
+            --metalloid: #fbbf24;
+            --post-transition: #2dd4bf;
+            --transition-metal: #a855f7;
+            --lanthanide: #06b6d4;
+            --actinide: #ec4899;
+            --unknown: #64748b;
+
+            /* HOVER & TRANSITION HOVER GLOWS */
+            --glow-hover: #6366f1;
+            --glow-active: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 24px;
+        }
+
+        /* PREMIUM STREAMLINED SCROLLBARS */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        /* CENTERED TITLE WITH SUITABLE GLOWING SHADOW */
+        header {
+            width: 100%;
+            max-width: 1600px;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        header h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.5), 
+                         0 0 20px rgba(56, 189, 248, 0.2);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+            width: 100%;
+            max-width: 1600px;
+            align-items: start;
+        }
+
+        .table-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            overflow-x: auto;
+        }
+
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, minmax(56px, 1fr));
+            gap: 6px;
+        }
+
+        /* GRID ELEMENTS STYLING (MASS ON TOP RIGHT, ATOMIC NUM ON TOP LEFT) */
+        .element {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 6px;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center; 
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        /* GLOWING VIOLET-BLUE HOVER/ACTIVE INTERACTION BORDERS */
+        .element:hover {
+            border-color: var(--glow-hover);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.45);
+            transform: translateY(-2px);
+            z-index: 2;
+        }
+
+        .element.active {
+            border-color: var(--glow-active);
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
+            background: rgba(99, 102, 241, 0.04);
+        }
+
+        .element-top-meta {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 0.58rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 0 2px;
+        }
+
+        .element-top-meta .elem-mass-text {
+            font-weight: 400;
+            opacity: 0.85;
+        }
+
+        /* LETTERS GLOVING REFLECTION SHADOW */
+        .elem-sym {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: -2px;
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+        }
+
+        .elem-name {
+            font-size: 0.58rem;
+            color: var(--text-muted);
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* COMPACT COLOR CHANNELS */
+        .reactive-nonmetal { color: var(--reactive-nonmetal); }
+        .noble-gas { color: var(--noble-gas); }
+        .alkali-metal { color: var(--alkali-metal); }
+        .alkaline-earth { color: var(--alkaline-earth); }
+        .metalloid { color: var(--metalloid); }
+        .post-transition { color: var(--post-transition); }
+        .transition-metal { color: var(--transition-metal); }
+        .lanthanide { color: var(--lanthanide); }
+        .actinide { color: var(--actinide); }
+        .unknown { color: var(--unknown); }
+
+        .table-spacer {
+            grid-column: span 18;
+            height: 16px;
+        }
+
+        /* INFO PANEL LEGEND KEY (PERFECTLY CENTERED) */
+        .legend-container {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; 
+            gap: 14px 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #bcbbcb;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .reactive-nonmetal-dot { background-color: var(--reactive-nonmetal); }
+        .noble-gas-dot { background-color: var(--noble-gas); }
+        .alkali-metal-dot { background-color: var(--alkali-metal); }
+        .alkaline-earth-dot { background-color: var(--alkaline-earth); }
+        .metalloid-dot { background-color: var(--metalloid); }
+        .post-transition-dot { background-color: var(--post-transition); }
+        .transition-metal-dot { background-color: var(--transition-metal); }
+        .lanthanide-dot { background-color: var(--lanthanide); }
+        .actinide-dot { background-color: var(--actinide); }
+        .unknown-dot { background-color: var(--unknown); }
+
+        /* INSPECTION COLUMN SPECIFICATION (RIGHT SIDE PANEL) */
+        .info-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .placeholder-state {
+            color: var(--text-muted);
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 48px 0;
+        }
+
+        .info-display {
+            display: none;
+        }
+
+        .info-display.active {
+            display: block;
+        }
+
+        .info-hero {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* REFINED SYMBOL PREVIEW EMBED - CHANNELS VERTICAL AND HORIZONTAL CENTER */
+        .hero-sym-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center; 
+            padding: 6px 8px;
+            flex-shrink: 0;
+        }
+
+        .hero-top-meta {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+
+        .hero-sym {
+            font-size: 1.85rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+            text-align: center;
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+        }
+
+        .hero-meta h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .hero-meta span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .info-row {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 14px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .info-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        footer .brand-signature {
+            color: var(--reactive-nonmetal);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1180px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Elementix Pro</h1>
+        <p>Interactive Periodic Table</p>
+    </header>
+
+    <div class="main-layout">
+        <div class="table-panel">
+            <div class="periodic-table" id="table-grid"></div>
+            
+            <div class="legend-container">
+                <div class="legend-item"><div class="legend-dot alkali-metal-dot"></div>Alkali metals</div>
+                <div class="legend-item"><div class="legend-dot alkaline-earth-dot"></div>Alkaline earth metals</div>
+                <div class="legend-item"><div class="legend-dot transition-metal-dot"></div>Transition metals</div>
+                <div class="legend-item"><div class="legend-dot post-transition-dot"></div>Post-transition metals</div>
+                <div class="legend-item"><div class="legend-dot metalloid-dot"></div>Metalloids</div>
+                <div class="legend-item"><div class="legend-dot reactive-nonmetal-dot"></div>Reactive non-metals</div>
+                <div class="legend-item"><div class="legend-dot noble-gas-dot"></div>Noble gases</div>
+                <div class="legend-item"><div class="legend-dot lanthanide-dot"></div>Lanthanides</div>
+                <div class="legend-item"><div class="legend-dot actinide-dot"></div>Actinides</div>
+                <div class="legend-item"><div class="legend-dot unknown-dot"></div>Unknown properties</div>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <div id="info-placeholder" class="placeholder-state">
+                Select an element square inside the matrix layout structure.
+            </div>
+            
+            <div id="info-content" class="info-display">
+                <div class="info-hero">
+                    <div class="hero-sym-box">
+                        <div class="hero-top-meta">
+                            <span id="hero-num">-</span>
+                            <span id="hero-mass">-</span>
+                        </div>
+                        <div id="view-sym" class="hero-sym">-</div>
+                    </div>
+                    <div class="hero-meta">
+                        <h2 id="view-name">-</h2>
+                        <span id="view-cat">-</span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Atomic Number</span>
+                    <span class="info-value" id="view-num">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Atomic Mass</span>
+                    <span class="info-value" id="view-mass-row">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">No. of Protons</span>
+                    <span class="info-value" id="view-protons">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">No. of Electrons</span>
+                    <span class="info-value" id="view-electrons">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Table Position</span>
+                    <span class="info-value" id="view-pos">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Discovered in
+                  </span>
+                    <span class="info-value" id="view-year">-</span>
+                </div>
+                <div class="info-row" style="margin-bottom: 0;">
+                    <span class="info-label">Discovered By</span>
+                    <span class="info-value" id="view-discoverer">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Made by <span class="brand-signature">Pruthviraj Patil with AI</span>
+    </footer>
+
+    <script>
+        const dataset = [
+            { num: 1, sym: "H", name: "Hydrogen", mass: "1.008", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 1, col: 1, discovered: "1766", discoverer: "Henry Cavendish" },
+            { num: 2, sym: "He", name: "Helium", mass: "4.002", group: "noble-gas", category: "Noble Gas", period: 1, col: 18, discovered: "1868", discoverer: "Janssen & Lockyer" },
+            { num: 3, sym: "Li", name: "Lithium", mass: "6.94", group: "alkali-metal", category: "Alkali Metal", period: 2, col: 1, discovered: "1817", discoverer: "Johan August Arfwedson" },
+            { num: 4, sym: "Be", name: "Beryllium", mass: "9.012", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 2, col: 2, discovered: "1798", discoverer: "Louis Nicolas Vauquelin" },
+            { num: 5, sym: "B", name: "Boron", mass: "10.81", group: "metalloid", category: "Metalloid", period: 2, col: 13, discovered: "1808", discoverer: "Gay-Lussac & Thénard" },
+            { num: 6, sym: "C", name: "Carbon", mass: "12.01", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 14, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 7, sym: "N", name: "Nitrogen", mass: "14.00", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 15, discovered: "1772", discoverer: "Daniel Rutherford" },
+            { num: 8, sym: "O", name: "Oxygen", mass: "15.99", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 16, discovered: "1774", discoverer: "Joseph Priestley" },
+            { num: 9, sym: "F", name: "Fluorine", mass: "18.99", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 2, col: 17, discovered: "1886", discoverer: "Henri Moissan" },
+            { num: 10, sym: "Ne", name: "Neon", mass: "20.18", group: "noble-gas", category: "Noble Gas", period: 2, col: 18, discovered: "1898", discoverer: "Ramsay & Travers" },
+            { num: 11, sym: "Na", name: "Sodium", mass: "22.99", group: "alkali-metal", category: "Alkali Metal", period: 3, col: 1, discovered: "1807", discoverer: "Humphry Davy" },
+            { num: 12, sym: "Mg", name: "Magnesium", mass: "24.30", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 3, col: 2, discovered: "1755", discoverer: "Joseph Black" },
+            { num: 13, sym: "Al", name: "Aluminium", mass: "26.98", group: "post-transition", category: "Post-transition Metal", period: 3, col: 13, discovered: "1825", discoverer: "Hans Christian Ørsted" },
+            { num: 14, sym: "Si", name: "Silicon", mass: "28.08", group: "metalloid", category: "Metalloid", period: 3, col: 14, discovered: "1823", discoverer: "Jöns Jacob Berzelius" },
+            { num: 15, sym: "P", name: "Phosphorus", mass: "30.97", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 15, discovered: "1669", discoverer: "Hennig Brand" },
+            { num: 16, sym: "S", name: "Sulfur", mass: "32.06", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 16, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 17, sym: "Cl", name: "Chlorine", mass: "35.45", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 3, col: 17, discovered: "1774", discoverer: "Carl Wilhelm Scheele" },
+            { num: 18, sym: "Ar", name: "Argon", mass: "39.94", group: "noble-gas", category: "Noble Gas", period: 3, col: 18, discovered: "1894", discoverer: "Ramsay & Rayleigh" },
+            { num: 19, sym: "K", name: "Potassium", mass: "39.09", group: "alkali-metal", category: "Alkali Metal", period: 4, col: 1, discovered: "1807", discoverer: "Humphry Davy" },
+            { num: 20, sym: "Ca", name: "Calcium", mass: "40.07", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 4, col: 2, discovered: "1808", discoverer: "Humphry Davy" },
+            { num: 21, sym: "Sc", name: "Scandium", mass: "44.95", group: "transition-metal", category: "Transition Metal", period: 4, col: 3, discovered: "1879", discoverer: "Lars Fredrik Nilson" },
+            { num: 22, sym: "Ti", name: "Titanium", mass: "47.86", group: "transition-metal", category: "Transition Metal", period: 4, col: 4, discovered: "1791", discoverer: "William Gregor" },
+            { num: 23, sym: "V", name: "Vanadium", mass: "50.94", group: "transition-metal", category: "Transition Metal", period: 4, col: 5, discovered: "1801", discoverer: "Andrés Manuel del Río" },
+            { num: 24, sym: "Cr", name: "Chromium", mass: "51.99", group: "transition-metal", category: "Transition Metal", period: 4, col: 6, discovered: "1797", discoverer: "Louis Nicolas Vauquelin" },
+            { num: 25, sym: "Mn", name: "Manganese", mass: "54.93", group: "transition-metal", category: "Transition Metal", period: 4, col: 7, discovered: "1774", discoverer: "Carl Wilhelm Scheele" },
+            { num: 26, sym: "Fe", name: "Iron", mass: "55.84", group: "transition-metal", category: "Transition Metal", period: 4, col: 8, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 27, sym: "Co", name: "Cobalt", mass: "58.93", group: "transition-metal", category: "Transition Metal", period: 4, col: 9, discovered: "1735", discoverer: "Georg Brandt" },
+            { num: 28, sym: "Ni", name: "Nickel", mass: "58.69", group: "transition-metal", category: "Transition Metal", period: 4, col: 10, discovered: "1751", discoverer: "Axel Fredrik Cronstedt" },
+            { num: 29, sym: "Cu", name: "Copper", mass: "63.54", group: "transition-metal", category: "Transition Metal", period: 4, col: 11, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 30, sym: "Zn", name: "Zinc", mass: "65.38", group: "transition-metal", category: "Transition Metal", period: 4, col: 12, discovered: "Ancient", discoverer: "Indian Chemists" },
+            { num: 31, sym: "Ga", name: "Gallium", mass: "69.72", group: "post-transition", category: "Post-transition Metal", period: 4, col: 13, discovered: "1875", discoverer: "Paul-Émile Lecoq de Boisbaudran" },
+            { num: 32, sym: "Ge", name: "Germanium", mass: "72.63", group: "metalloid", category: "Metalloid", period: 4, col: 14, discovered: "1886", discoverer: "Clemens Winkler" },
+            { num: 33, sym: "As", name: "Arsenic", mass: "74.92", group: "metalloid", category: "Metalloid", period: 4, col: 15, discovered: "Ancient", discoverer: "Albertus Magnus" },
+            { num: 34, sym: "Se", name: "Selenium", mass: "78.97", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 4, col: 16, discovered: "1817", discoverer: "Berzelius & Gahn" },
+            { num: 35, sym: "Br", name: "Bromine", mass: "79.90", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 4, col: 17, discovered: "1826", discoverer: "Balard & Gmelin" },
+            { num: 36, sym: "Kr", name: "Krypton", mass: "83.79", group: "noble-gas", category: "Noble Gas", period: 4, col: 18, discovered: "1898", discoverer: "Ramsay & Travers" },
+            { num: 37, sym: "Rb", name: "Rubidium", mass: "85.46", group: "alkali-metal", category: "Alkali Metal", period: 5, col: 1, discovered: "1861", discoverer: "Bunsen & Kirchhoff" },
+            { num: 38, sym: "Sr", name: "Strontium", mass: "87.62", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 5, col: 2, discovered: "1790", discoverer: "Adair Crawford" },
+            { num: 39, sym: "Y", name: "Yttrium", mass: "88.90", group: "transition-metal", category: "Transition Metal", period: 5, col: 3, discovered: "1794", discoverer: "Johan Gadolin" },
+            { num: 40, sym: "Zr", name: "Zirconium", mass: "91.22", group: "transition-metal", category: "Transition Metal", period: 5, col: 4, discovered: "1789", discoverer: "Martin Heinrich Klaproth" },
+            { num: 41, sym: "Nb", name: "Niobium", mass: "92.91", group: "transition-metal", category: "Transition Metal", period: 5, col: 5, discovered: "1801", discoverer: "Charles Hatchett" },
+            { num: 42, sym: "Mo", name: "Molybdenum", mass: "95.95", group: "transition-metal", category: "Transition Metal", period: 5, col: 6, discovered: "1778", discoverer: "Carl Wilhelm Scheele" },
+            { num: 43, sym: "Tc", name: "Technetium", mass: "98.00", group: "transition-metal", category: "Transition Metal", period: 5, col: 7, discovered: "1937", discoverer: "Perrier & Segrè" },
+            { num: 44, sym: "Ru", name: "Ruthenium", mass: "101.1", group: "transition-metal", category: "Transition Metal", period: 5, col: 8, discovered: "1844", discoverer: "Karl Ernst Claus" },
+            { num: 45, sym: "Rh", name: "Rhodium", mass: "102.9", group: "transition-metal", category: "Transition Metal", period: 5, col: 9, discovered: "1803", discoverer: "William Hyde Wollaston" },
+            { num: 46, sym: "Pd", name: "Palladium", mass: "106.4", group: "transition-metal", category: "Transition Metal", period: 5, col: 10, discovered: "1803", discoverer: "William Hyde Wollaston" },
+            { num: 47, sym: "Ag", name: "Silver", mass: "107.8", group: "transition-metal", category: "Transition Metal", period: 5, col: 11, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 48, sym: "Cd", name: "Cadmium", mass: "112.4", group: "transition-metal", category: "Transition Metal", period: 5, col: 12, discovered: "1817", discoverer: "Karl Samuel Leberecht Hermann" },
+            { num: 49, sym: "In", name: "Indium", mass: "114.8", group: "post-transition", category: "Post-transition Metal", period: 5, col: 13, discovered: "1863", discoverer: "Reich & Richter" },
+            { num: 50, sym: "Sn", name: "Tin", mass: "118.7", group: "post-transition", category: "Post-transition Metal", period: 5, col: 14, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 51, sym: "Sb", name: "Antimony", mass: "121.7", group: "metalloid", category: "Metalloid", period: 5, col: 15, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 52, sym: "Te", name: "Tellurium", mass: "127.6", group: "metalloid", category: "Metalloid", period: 5, col: 16, discovered: "1782", discoverer: "Franz-Joseph Müller von Reichenstein" },
+            { num: 53, sym: "I", name: "Iodine", mass: "126.9", group: "reactive-nonmetal", category: "Reactive Non-metal", period: 5, col: 17, discovered: "1811", discoverer: "Bernard Courtois" },
+            { num: 54, sym: "Xe", name: "Xenon", mass: "131.2", group: "noble-gas", category: "Noble Gas", period: 5, col: 18, discovered: "1898", discoverer: "Ramsay & Travers" },
+            { num: 55, sym: "Cs", name: "Caesium", mass: "132.9", group: "alkali-metal", category: "Alkali Metal", period: 6, col: 1, discovered: "1860", discoverer: "Bunsen & Kirchhoff" },
+            { num: 56, sym: "Ba", name: "Barium", mass: "137.3", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 6, col: 2, discovered: "1808", discoverer: "Humphry Davy" },
+            { num: 72, sym: "Hf", name: "Hafnium", mass: "178.4", group: "transition-metal", category: "Transition Metal", period: 6, col: 4, discovered: "1922", discoverer: "Coster & de Hevesy" },
+            { num: 73, sym: "Ta", name: "Tantalum", mass: "180.9", group: "transition-metal", category: "Transition Metal", period: 6, col: 5, discovered: "1802", discoverer: "Anders Gustaf Ekeberg" },
+            { num: 74, sym: "W", name: "Tungsten", mass: "183.8", group: "transition-metal", category: "Transition Metal", period: 6, col: 6, discovered: "1781", discoverer: "Carl Wilhelm Scheele" },
+            { num: 75, sym: "Re", name: "Rhenium", mass: "186.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 7, discovered: "1925", discoverer: "Noddack, Tacke & Berg" },
+            { num: 76, sym: "Os", name: "Osmium", mass: "190.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 8, discovered: "1803", discoverer: "Smithson Tennant" },
+            { num: 77, sym: "Ir", name: "Iridium", mass: "192.2", group: "transition-metal", category: "Transition Metal", period: 6, col: 9, discovered: "1803", discoverer: "Smithson Tennant" },
+            { num: 78, sym: "Pt", name: "Platinum", mass: "195.1", group: "transition-metal", category: "Transition Metal", period: 6, col: 10, discovered: "1803", discoverer: "Smithson Tennant" },
+            { num: 79, sym: "Au", name: "Gold", mass: "196.9", group: "transition-metal", category: "Transition Metal", period: 6, col: 11, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 80, sym: "Hg", name: "Mercury", mass: "200.5", group: "transition-metal", category: "Transition Metal", period: 6, col: 12, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 81, sym: "Tl", name: "Thallium", mass: "204.3", group: "post-transition", category: "Post-transition Metal", period: 6, col: 13, discovered: "1861", discoverer: "William Crookes" },
+            { num: 82, sym: "Pb", name: "Lead", mass: "207.2", group: "post-transition", category: "Post-transition Metal", period: 6, col: 14, discovered: "Ancient", discoverer: "Unknown" },
+            { num: 83, sym: "Bi", name: "Bismuth", mass: "208.9", group: "post-transition", category: "Post-transition Metal", period: 6, col: 15, discovered: "Ancient", discoverer: "Claude François Geoffroy" },
+            { num: 84, sym: "Po", name: "Polonium", mass: "209.0", group: "post-transition", category: "Post-transition Metal", period: 6, col: 16, discovered: "1898", discoverer: "Marie and Pierre Curie" },
+            { num: 85, sym: "At", name: "Astatine", mass: "210.0", group: "metalloid", category: "Metalloid", period: 6, col: 17, discovered: "1940", discoverer: "Dale R. Corson" },
+            { num: 86, sym: "Rn", name: "Radon", mass: "222.0", group: "noble-gas", category: "Noble Gas", period: 6, col: 18, discovered: "1899", discoverer: "Ernest Rutherford" },
+            { num: 87, sym: "Fr", name: "Francium", mass: "223.0", group: "alkali-metal", category: "Alkali Metal", period: 7, col: 1, discovered: "1939", discoverer: "Marguerite Perey" },
+            { num: 88, sym: "Ra", name: "Radium", mass: "226.0", group: "alkaline-earth", category: "Alkaline Earth Metal", period: 7, col: 2, discovered: "1898", discoverer: "Marie and Pierre Curie" },
+            { num: 104, sym: "Rf", name: "Rutherfordium", mass: "267.0", group: "unknown", category: "Unknown Properties", period: 7, col: 4, discovered: "1964", discoverer: "JINR / LBNL" },
+            { num: 105, sym: "Db", name: "Dubnium", mass: "268.0", group: "unknown", category: "Unknown Properties", period: 7, col: 5, discovered: "1967", discoverer: "JINR / LBNL" },
+            { num: 106, sym: "Sg", name: "Seaborgium", mass: "269.0", group: "unknown", category: "Unknown Properties", period: 7, col: 6, discovered: "1974", discoverer: "LBNL" },
+            { num: 107, sym: "Bh", name: "Bohrium", mass: "270.0", group: "unknown", category: "Unknown Properties", period: 7, col: 7, discovered: "1981", discoverer: "GSI" },
+            { num: 108, sym: "Hs", name: "Hassium", mass: "269.0", group: "unknown", category: "Unknown Properties", period: 7, col: 8, discovered: "1984", discoverer: "GSI" },
+            { num: 109, sym: "Mt", name: "Meitnerium", mass: "278.0", group: "unknown", category: "Unknown Properties", period: 7, col: 9, discovered: "1982", discoverer: "GSI" },
+            { num: 110, sym: "Ds", name: "Darmstadtium", mass: "281.0", group: "unknown", category: "Unknown Properties", period: 7, col: 10, discovered: "1994", discoverer: "GSI" },
+            { num: 111, sym: "Rg", name: "Roentgenium", mass: "282.0", group: "unknown", category: "Unknown Properties", period: 7, col: 11, discovered: "1994", discoverer: "GSI" },
+            { num: 112, sym: "Cn", name: "Copernicium", mass: "285.0", group: "unknown", category: "Unknown Properties", period: 7, col: 12, discovered: "1996", discoverer: "GSI" },
+            { num: 113, sym: "Nh", name: "Nihonium", mass: "286.0", group: "unknown", category: "Unknown Properties", period: 7, col: 13, discovered: "2003", discoverer: "RIKEN" },
+            { num: 114, sym: "Fl", name: "Flerovium", mass: "289.0", group: "unknown", category: "Unknown Properties", period: 7, col: 14, discovered: "1998", discoverer: "JINR" },
+            { num: 115, sym: "Mc", name: "Moscovium", mass: "290.0", group: "unknown", category: "Unknown Properties", period: 7, col: 15, discovered: "2003", discoverer: "JINR / LLNL" },
+            { num: 116, sym: "Lv", name: "Livermorium", mass: "293.0", group: "unknown", category: "Unknown Properties", period: 7, col: 16, discovered: "2000", discoverer: "JINR / LLNL" },
+            { num: 117, sym: "Ts", name: "Tennessine", mass: "294.0", group: "unknown", category: "Unknown Properties", period: 7, col: 17, discovered: "2010", discoverer: "JINR / LLNL / ORNL" },
+            { num: 118, sym: "Og", name: "Oganesson", mass: "294.0", group: "unknown", category: "Unknown Properties", period: 7, col: 18, discovered: "2002", discoverer: "JINR / LLNL" },
+
+            // Lanthanide Series Elements
+            { num: 57, sym: "La", name: "Lanthanum", mass: "138.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 3, isLanthanide: true, discovered: "1839", discoverer: "Carl Gustaf Mosander" },
+            { num: 58, sym: "Ce", name: "Cerium", mass: "140.1", group: "lanthanide", category: "Lanthanide", period: 6, col: 4, isLanthanide: true, discovered: "1803", discoverer: "Berzelius & Hisinger" },
+            { num: 59, sym: "Pr", name: "Praseodymium", mass: "140.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 5, isLanthanide: true, discovered: "1885", discoverer: "Carl Auer von Welsbach" },
+            { num: 60, sym: "Nd", name: "Neodymium", mass: "144.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 6, isLanthanide: true, discovered: "1885", discoverer: "Carl Auer von Welsbach" },
+            { num: 61, sym: "Pm", name: "Promethium", mass: "145.0", group: "lanthanide", category: "Lanthanide", period: 6, col: 7, isLanthanide: true, discovered: "1945", discoverer: "Marinsky, Glendenin & Coryell" },
+            { num: 62, sym: "Sm", name: "Samarium", mass: "150.3", group: "lanthanide", category: "Lanthanide", period: 6, col: 8, isLanthanide: true, discovered: "1879", discoverer: "Paul-Émile Lecoq de Boisbaudran" },
+            { num: 63, sym: "Eu", name: "Europium", mass: "151.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 9, isLanthanide: true, discovered: "1901", discoverer: "Eugène-Anatole Demarçay" },
+            { num: 64, sym: "Gd", name: "Gadolinium", mass: "157.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 10, isLanthanide: true, discovered: "1880", discoverer: "Jean Charles Galissard de Marignac" },
+            { num: 65, sym: "Tb", name: "Terbium", mass: "158.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 11, isLanthanide: true, discovered: "1843", discoverer: "Carl Gustaf Mosander" },
+            { num: 66, sym: "Dy", name: "Dysprosium", mass: "162.5", group: "lanthanide", category: "Lanthanide", period: 6, col: 12, isLanthanide: true, discovered: "1886", discoverer: "Paul-Émile Lecoq de Boisbaudran" },
+            { num: 67, sym: "Ho", name: "Holmium", mass: "164.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 13, isLanthanide: true, discovered: "1878", discoverer: "Jacques-Louis Soret" },
+            { num: 68, sym: "Er", name: "Erbium", mass: "167.2", group: "lanthanide", category: "Lanthanide", period: 6, col: 14, isLanthanide: true, discovered: "1843", discoverer: "Carl Gustaf Mosander" },
+            { num: 69, sym: "Tm", name: "Thulium", mass: "168.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 15, isLanthanide: true, discovered: "1879", discoverer: "Per Teodor Cleve" },
+            { num: 70, sym: "Yb", name: "Ytterbium", mass: "173.0", group: "lanthanide", category: "Lanthanide", period: 6, col: 16, isLanthanide: true, discovered: "1878", discoverer: "Jean Charles Galissard de Marignac" },
+            { num: 71, sym: "Lu", name: "Lutetium", mass: "174.9", group: "lanthanide", category: "Lanthanide", period: 6, col: 17, isLanthanide: true, discovered: "1907", discoverer: "Georges Urbain" },
+
+            // Actinide Series Elements
+            { num: 89, sym: "Ac", name: "Actinium", mass: "227.0", group: "actinide", category: "Actinide", period: 7, col: 3, isActinide: true, discovered: "1899", discoverer: "André-Louis Debierne" },
+            { num: 90, sym: "Th", name: "Thorium", mass: "232.0", group: "actinide", category: "Actinide", period: 7, col: 4, isActinide: true, discovered: "1829", discoverer: "Jöns Jacob Berzelius" },
+            { num: 91, sym: "Pa", name: "Protactinium", mass: "231.0", group: "actinide", category: "Actinide", period: 7, col: 5, isActinide: true, discovered: "1913", discoverer: "Fajans & Göhring" },
+            { num: 92, sym: "U", name: "Uranium", mass: "238.0", group: "actinide", category: "Actinide", period: 7, col: 6, isActinide: true, discovered: "1789", discoverer: "Martin Heinrich Klaproth" },
+            { num: 93, sym: "Np", name: "Neptunium", mass: "237.0", group: "actinide", category: "Actinide", period: 7, col: 7, isActinide: true, discovered: "1940", discoverer: "McMillan & Abelson" },
+            { num: 94, sym: "Pu", name: "Plutonium", mass: "244.0", group: "actinide", category: "Actinide", period: 7, col: 8, isActinide: true, discovered: "1940", discoverer: "Glenn T. Seaborg" },
+            { num: 95, sym: "Am", name: "Americium", mass: "243.0", group: "actinide", category: "Actinide", period: 7, col: 9, isActinide: true, discovered: "1944", discoverer: "Glenn T. Seaborg" },
+            { num: 96, sym: "Cm", name: "Curium", mass: "247.0", group: "actinide", category: "Actinide", period: 7, col: 10, isActinide: true, discovered: "1944", discoverer: "Glenn T. Seaborg" },
+            { num: 97, sym: "Bk", name: "Berkelium", mass: "247.0", group: "actinide", category: "Actinide", period: 7, col: 11, isActinide: true, discovered: "1949", discoverer: "Glenn T. Seaborg" },
+            { num: 98, sym: "Cf", name: "Californium", mass: "251.0", group: "actinide", category: "Actinide", period: 7, col: 12, isActinide: true, discovered: "1950", discoverer: "Glenn T. Seaborg" },
+            { num: 99, sym: "Es", name: "Einsteinium", mass: "252.0", group: "actinide", category: "Actinide", period: 7, col: 13, isActinide: true, discovered: "1952", discoverer: "Albert Ghiorso" },
+            { num: 100, sym: "Fm", name: "Fermium", mass: "257.0", group: "actinide", category: "Actinide", period: 7, col: 14, isActinide: true, discovered: "1952", discoverer: "Albert Ghiorso" },
+            { num: 101, sym: "Md", name: "Mendelevium", mass: "258.0", group: "actinide", category: "Actinide", period: 7, col: 15, isActinide: true, discovered: "1955", discoverer: "Albert Ghiorso" },
+            { num: 102, sym: "No", name: "Nobelium", mass: "259.0", group: "actinide", category: "Actinide", period: 7, col: 16, isActinide: true, discovered: "1966", discoverer: "Flyorov et al." },
+            { num: 103, sym: "Lr", name: "Lawrencium", mass: "266.0", group: "actinide", category: "Actinide", period: 7, col: 17, isActinide: true, discovered: "1961", discoverer: "Albert Ghiorso" }
+        ];
+
+        const grid = document.getElementById('table-grid');
+
+        function generateMatrix() {
+            const normalSet = dataset.filter(e => !e.isLanthanide && !e.isActinide);
+            
+            for (let r = 1; r <= 7; r++) {
+                for (let c = 1; c <= 18; c++) {
+                    if (r === 6 && c === 3) {
+                        createPlaceholder("57-71");
+                        continue;
+                    }
+                    if (r === 7 && c === 3) {
+                        createPlaceholder("89-103");
+                        continue;
+                    }
+
+                    const found = normalSet.find(e => e.period === r && e.col === c);
+                    if (found) {
+                        appendElement(found);
+                    } else {
+                        grid.appendChild(document.createElement('div'));
+                    }
+                }
+            }
+
+            const separator = document.createElement('div');
+            separator.className = 'table-spacer';
+            grid.appendChild(separator);
+
+            appendPadding(2);
+            dataset.filter(e => e.isLanthanide).forEach(e => appendElement(e));
+            appendPadding(1);
+
+            appendPadding(2);
+            dataset.filter(e => e.isActinide).forEach(e => appendElement(e));
+            appendPadding(1);
+        }
+
+        function createPlaceholder(labelText) {
+            const block = document.createElement('div');
+            block.className = 'element';
+            block.style.opacity = "0.2";
+            block.style.cursor = "default";
+            block.innerHTML = `
+                <div class="element-top-meta"><span></span><span></span></div>
+                <span class="elem-sym" style="font-size:0.8rem; line-height:2; color:var(--text-muted); text-shadow:none;">${labelText}</span>
+                <span class="elem-name"></span>
+            `;
+            grid.appendChild(block);
+        }
+
+        function appendPadding(count) {
+            for(let i=0; i<count; i++) grid.appendChild(document.createElement('div'));
+        }
+
+        function appendElement(data) {
+            const block = document.createElement('div');
+            block.className = 'element';
+            block.innerHTML = `
+                <div class="element-top-meta">
+                    <span>${data.num}</span>
+                    <span class="elem-mass-text">${data.mass}</span>
+                </div>
+                <span class="elem-sym ${data.group}">${data.sym}</span>
+                <span class="elem-name">${data.name}</span>
+            `;
+            block.addEventListener('click', () => updatePreviewMetrics(data, block));
+            grid.appendChild(block);
+        }
+
+        function updatePreviewMetrics(data, node) {
+            document.querySelectorAll('.element').forEach(n => n.classList.remove('active'));
+            node.classList.add('active');
+
+            document.getElementById('info-placeholder').style.display = 'none';
+            const panel = document.getElementById('info-content');
+            panel.classList.add('active');
+
+            // PLACE NUMBER & MASS IN THE TOP CORNERS OF THE ACTIVE ELEMENT DISPLAY
+            document.getElementById('hero-num').innerText = data.num;
+            document.getElementById('hero-mass').innerText = data.mass;
+
+            const symView = document.getElementById('view-sym');
+            symView.innerText = data.sym;
+            symView.className = `hero-sym ${data.group}`;
+            
+            document.getElementById('view-name').innerText = data.name;
+            document.getElementById('view-cat').innerText = data.category;
+            document.getElementById('view-num').innerText = data.num;
+            document.getElementById('view-mass-row').innerText = `${data.mass} u`;
+            document.getElementById('view-protons').innerText = data.num;
+            document.getElementById('view-electrons').innerText = data.num;
+            
+            const positionText = data.isLanthanide || data.isActinide ? `Period ${data.period}, Block Series` : `Period ${data.period}, Group ${data.col}`;
+            document.getElementById('view-pos').innerText = positionText;
+            document.getElementById('view-year').innerText = data.discovered;
+            document.getElementById('view-discoverer').innerText = data.discoverer;
+        }
+
+        generateMatrix();
+    </script>
+</body>
+</html>
