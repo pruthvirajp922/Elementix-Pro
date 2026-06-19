@@ -156,11 +156,10 @@
             z-index: 10;
         }
 
-        .element.active {
-            border-color: var(--glow-active);
-            box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
+.element.active {
+            border-color: var(--glow-active) !important;
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.6) !important;
         }
-
         .element.series-placeholder {
             border: 1px solid rgba(99, 102, 241, 0.3);
             background: rgba(99, 102, 241, 0.05);
@@ -192,7 +191,7 @@
         .element.highlight-post-transition { background-color: rgba(45, 212, 191, 0.12); border-color: rgba(45, 212, 191, 0.3); }
         .element.highlight-transition-metal { background-color: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.3); }
         .element.highlight-lanthanide { background-color: rgba(6, 182, 212, 0.2); border-color: var(--lanthanide); box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
-        .element.highlight-actinide { background-color: rgba(236, 72, 153, 0.2); border-color: var(--actinide); box-shadow: 0 0 10px rgba(236, 72, 153, 0.4); }
+.element.highlight-actinide { background-color: rgba(236, 72, 153, 0.2); border-color: var(--actinide); box-shadow: 0 0 10px rgba(236, 72, 153, 0.4); }
         .element.highlight-unknown { background-color: rgba(100, 116, 139, 0.12); border-color: rgba(100, 116, 139, 0.3); }
 
         .element-top-meta {
@@ -582,12 +581,12 @@
 
                 <div class="nucleus-legend-bar">
                     <div class="nucleus-legend-node">
-                        <div class="nucleus-legend-circle bg-proton">+</div>
-                        <span>Proton</span>
+                        <div class="nucleus-legend-circle bg-proton"></div>
+                        <span>Proton ( + ve )</span>
                     </div>
                     <div class="nucleus-legend-node">
-                        <div class="nucleus-legend-circle bg-neutron">0</div>
-                        <span>Neutron</span>
+                        <div class="nucleus-legend-circle bg-neutron"></div>
+                        <span>Neutron ( 0 / neutral )</span>
                     </div>
                 </div>
 
@@ -903,21 +902,37 @@
                 const baseNeutronRadius = 6 * atomZoomScale;
                 const baseElectronRadius = 3 * atomZoomScale;
 
-                 // Red core
+                // 2. Beautiful Compact Nucleus Center Cluster Graphic
 ctx.beginPath();
-ctx.arc(cx, cy, baseProtonRadius, 0, Math.PI * 2);
-ctx.fillStyle = '#ef4444'; 
-ctx.shadowColor = '#ef4444';
-ctx.shadowBlur = 12 * atomZoomScale;
+ctx.arc(cx, cy, 10 * atomZoomScale, 0, Math.PI * 2);
+ctx.fillStyle = '#1e1b4b';
+ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+ctx.lineWidth = 1.5;
 ctx.fill();
-ctx.shadowBlur = 0;
+ctx.stroke();
 
-// Blue core (NOW PERFECTLY CENTERED)
-ctx.beginPath();
-/* CHANGE THIS LINE to use clean cx and cy: */
-ctx.arc(cx, cy, baseNeutronRadius, 0, Math.PI * 2); 
-ctx.fillStyle = '#3b82f6'; 
-ctx.fill();
+// Beautiful Multi-Particle Clustered Nucleus
+const totalParticles = 16; 
+for (let i = 0; i < totalParticles; i++) {
+    // Golden ratio distribution to tightly pack particles into a circular cluster shape
+    const distance = Math.sqrt(i / (totalParticles - 1)) * (6 * atomZoomScale);
+    const angle = i * 137.5 * (Math.PI / 180);
+    
+    const nx = cx + Math.cos(angle) * distance;
+    const ny = cy + Math.sin(angle) * distance;
+    const particleRadius = 2.5 * atomZoomScale;
+
+    ctx.beginPath();
+    ctx.arc(nx, ny, particleRadius, 0, Math.PI * 2);
+    // Alternate colors evenly between Red (Protons) and Blue (Neutrons)
+    ctx.fillStyle = (i % 2 === 0) ? '#ef4444' : '#3b82f6';
+    ctx.fill();
+    
+    // Subtle 3D particle border shading overlay
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 0.4 * atomZoomScale;
+    ctx.stroke();
+}
 
 // ... rest of your shells loop code remains exactly the same
 
