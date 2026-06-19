@@ -904,7 +904,7 @@
 
                 // 2. Beautiful Compact Nucleus Center Cluster Graphic
 ctx.beginPath();
-ctx.arc(cx, cy, 10 * atomZoomScale, 0, Math.PI * 2);
+ctx.arc(cx, cy, 15 * atomZoomScale, 0, Math.PI * 2);
 ctx.fillStyle = '#1e1b4b';
 ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
 ctx.lineWidth = 1.5;
@@ -912,15 +912,15 @@ ctx.fill();
 ctx.stroke();
 
 // Beautiful Multi-Particle Clustered Nucleus
-const totalParticles = 16; 
+const totalParticles = 20; 
 for (let i = 0; i < totalParticles; i++) {
     // Golden ratio distribution to tightly pack particles into a circular cluster shape
-    const distance = Math.sqrt(i / (totalParticles - 1)) * (6 * atomZoomScale);
+    const distance = Math.sqrt(i / (totalParticles - 1)) * (10 * atomZoomScale);
     const angle = i * 137.5 * (Math.PI / 180);
     
     const nx = cx + Math.cos(angle) * distance;
     const ny = cy + Math.sin(angle) * distance;
-    const particleRadius = 2.5 * atomZoomScale;
+    const particleRadius = 3.2 * atomZoomScale;
 
     ctx.beginPath();
     ctx.arc(nx, ny, particleRadius, 0, Math.PI * 2);
@@ -930,7 +930,7 @@ for (let i = 0; i < totalParticles; i++) {
     
     // Subtle 3D particle border shading overlay
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-    ctx.lineWidth = 0.4 * atomZoomScale;
+    ctx.lineWidth = 0.5 * atomZoomScale;
     ctx.stroke();
 }
 
